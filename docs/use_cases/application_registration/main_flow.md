@@ -2,7 +2,7 @@
 
 #### :one: **Main Flow - SUCCESS.**
 In case RegisterAppInterface_request comes to SDL with correct structure and data and successfuly registered on SDL, SDL
-1) notifies HMI with OnAppRegistered (Link) notification about application registering
+1) notifies HMI with OnAppRegistered (Link) notification about application registering.   
 2) responds with resultCode "SUCCESS" and success:"true" value to mobile application.
 
 **_Preconditions:_**
@@ -23,23 +23,13 @@ appID->SDL: RegisterAppInreface(params, appHMIType[])
 **_Expected:_** SDL registers the app and assigns all appHMIType(s) which are got from PT:
 SDL->app: (resultCode: SUCCESS, success: true): RegisterAppInterface()
 
-
-
-#### :six: **Main flow - AppHMITypes is completely coincide with Policy data or not provided at all.**
-**_Preconditions:_** Local PT has several values in "AppHMIType" field in 'value-of-appID-the-app-has-registered-with' subsection of "app_policies" section.   
-**_Steps:_** Application with appID is registering on SDL with several values of AppHMIType: all types exist in local PT or/ NO AppHMIType(s) in the request:
+#### :seven: **Main flow - AppHMIType(s) are not included into an app's Policies.**
+**_Precondition:_** Local PT does NOT have "AppHMIType" field in 'value-of-appID-the-app-has-registered-with' subsection of "app_policies" section.   
+**_Steps:_** Application with appID is registering on SDL with at least one AppHMIType:
 appID->SDL: RegisterAppInreface(params, appHMIType[]).   
 **_Expected:_**
-SDL registers the app and assigns all appHMIType(s) which are got from PT:
-SDL->app: (resultCode: SUCCESS, success: true): RegisterAppInterface()
-
-#### :seven: **Main flow - AppHMIType(s) are not included into an app's Policies.**
-**_Precondition:_** Local PT does NOT have "AppHMIType" field in 'value-of-appID-the-app-has-registered-with' subsection of "app_policies" section
-**_Steps:_** Application with appID is registering on SDL with at least one AppHMIType:
-appID->SDL: RegisterAppInreface(params, appHMIType[])
-**_Expected:_**
 SDL registers the app and assigns the appHMITypes to the application which are got in the request:
-SDL->app: (resultCode: SUCCESS, success: true): RegisterAppInterface()
+SDL->app: (resultCode: SUCCESS, success: true): RegisterAppInterface().
 
 
 
