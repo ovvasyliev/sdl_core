@@ -37,7 +37,7 @@ _**Pre-conditions:**_
 
 Application HMI Type: any 
 
-app_1 successfully registers on SDL [link on Register app requirement]
+app_1 successfully registers on SDL _see_ [Application Registration] (https://github.com/LuxoftAKutsan/sdl_core/blob/feature/application_registration_use_case/docs/use_cases/application_registration/detailed_description.md)
 
 app_1 in other-than-NULL policies
 
