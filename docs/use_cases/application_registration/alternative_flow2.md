@@ -1,4 +1,3 @@
-
 ### Use Case 1: RegisterAppInterface - alternative flow (FAILED).
 
 #### :one: **Alternative flow - INVALID_DATA.**   
@@ -7,11 +6,11 @@
 1) connection, session and service \#7 are initialized for the application
 2) the request one of the defined in [mobile API]() is intended to be sent from mobile applicaton with appID.   
 **1.1.** If the request comes to SDL with wrong json syntax, SDL responds with resultCode "INVALID_DATA" and success:"false" value.   
-**1.2.** If request comes to SDL with empty value"" in "String" type parameters (including parameters of the structures), SDL responds with resultCode "INVALID_DATA" and success:"false" value.   
+**1.2.** If request comes to SDL with empty value "" in "String" type parameters (including parameters of the structures), SDL responds with resultCode "INVALID_DATA" and success:"false" value.   
 :grey_exclamation: _Exception:_ Sending empty value "" in String type parameters in textFields of Show/ShowConstantTBT request + "text" parameter SoftButton () for SoftButtonType=IMAGE.   
 **1.3.** If the request comes to SDL with wrong type parameters (including parameters of the structures), SDL must respond with resultCode "INVALID_DATA" and success:"false" value.   
 :grey_exclamation: _Exception:_ Sending enum values as "Integer" ones must be process successfully as the position number in the enum (in case not out of range, otherwise the rule above is applied).   
-:point_right: :book: _Example:_ sending "String" type values instead of "Integer" ones.   
+:book: _Example:_ sending "String" type values instead of "Integer" ones.   
 **1.4.** If the request comes without parameters defined as mandatory in mobile API, SDL responds with resultCode "INVALID_DATA" and success:"false" value.   
 :grey_exclamation: _Exception:_ For _Show_ request which contains all parameters as _mandatory=false_, SDL returns INVALID data if the request doesn't contain any parameters at all.   
 **1.5.** If the request comes with '\n' and-or '\t' and-or 'whitespace'-as-the-only-symbol(s) at any "String" type parameter in the request structure, SDL _must_ respond with resultCode "INVALID\_DATA" and success: "false" value.   
@@ -67,7 +66,7 @@ In case there is no free disk space for the new application registering even if 
 **_Preconditions:_**   
 a. M, N are the whole numbers.   
 b. AppDirectoryQuota=N.   
-c. N*(M-1)<AllowedDiscSpaceToWritebySDL<N*M.   
+c. N\*(M-1)\<AllowedDiscSpaceToWritebySDL\<N\*M.
 d. There're (M-1) apps connected.   
 **_Steps:_**
 application M is trying to register:
@@ -122,8 +121,7 @@ SDL responds RegisterAppInterface (WRONG_LANGUAGE, success:true, `<stored_UI_lan
 
 
 #### :eight: **Alternative flow - UNSUPPORTED_RESOURCE.**
-**_Preconditions:_** application with appID is registered on SDL an RPC references a few components on HMI (UI and/or TTS and/or VR).    
-**_Steps:_** app->SDL: RPC(params)   
+**_Preconditions:_** application with appID is registered on SDL an RPC references a few components on HMI (UI and/or TTS and/or VR).    **_Steps:_** app->SDL: RPC(params)   
 SDL->UI.RPC()   
 SDL->VR.RPC()   
 SDL->TTS.RPC()    
@@ -135,9 +133,8 @@ HMI->SDL:SUCCESS: TTS.RPC()
 
 
 #### :nine: **Alternative flow - RESUME_FAILED.**
-**_Preconditions:_** application with appID running on deviceID was disconnected by unexpected disconnect/IGN_Off less than 3 ignition cycles.
+**_Preconditions:_** application with appID running on deviceID was disconnected by unexpected disconnect/IGN_Off less than 3 ignition cycles.   
 **_Steps:_** app->SDL: RegisterAppInterface(appID, params) //hashID sent is NOT the same as stored for the pair `<appID, deviceID>` on SDL.   
-
 **_Expected:_**   
 1) SDL checks hashID obtained against of hashID stored for `<appID, deviceID>`
 //NOT the same as the stored one for the pair `<appID, deviceID>` on SDL.  
@@ -150,7 +147,7 @@ HMI->SDL:SUCCESS: TTS.RPC()
 If SDL receives _RegisterAppInterface_ RPC from mobile app with appHMIType(s) _**partially or not coincided**_ with current non-empty data stored in PolicyTable for the specified application, SDL:   
 1) allows appHMIType(s) registered in PT ONLY.   
 2) registers an application successfuly and return resultCode "WARNINGS, success: true" value.   
-3) provides an additional information to mobile application in the "info" parameter about appHMITypes received not listed in PT.
+3) provides an additional information to mobile application in the "info" parameter about appHMITypes received not listed in PT.   
 **_Preconditions:_** Local PT has several values in "AppHMIType" field in 'value-of-appID-the-app-has-registered-with' subsection of "app_policies" section.   
 **_Steps:_** Mobile app with appID sends RegisterAppInterface with several values of AppHMIType, all types do NOT exist in local PT or/ only some types exist in local PT:   
 app->SDL: ResgiterAppInterface(params, AppHMIType[`<appHMIType_1>`, `<appHMIType_2>`]).    
@@ -185,15 +182,6 @@ SDL responds APPLICATION_NOT_REGISTERED to this mobile app.
 **_Expected:_**
 
 
-
 **_Preconditions:_**    
 **_Steps:_**    
 **_Expected:_**
-
-
-
-
-
-Related Diagrams
-
-Diagrams (for example activity diagram) describing this feature must be attached
