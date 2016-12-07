@@ -81,7 +81,7 @@ Navigation app in BACKGROUND and NOT_AUDIBLE
 Navi source state is active on HMI  
 _**Steps:**_  
 HMI -> SDL: OnEventChanged (EMBEDDED_NAVI, isActive=false)  
-HMI -> SDL.ActivateApp (<appID_of_navigation_app>)  
+HMI -> SDL.ActivateApp (\<appID_of_navigation_app\>)  
 _**Expected:**_  
 SDL -> HMI: SDL.ActivateApp (SUCCESS)  
 SDL -> app: OnHMIStatus (FULL, AUDIBLE) 
@@ -94,3 +94,4 @@ HMI -> SDL.ActivateApp(\<appID_of_non-media_app\>)
 _**Expected:**_  
 SDL -> HMI: SDL. ActivateApp (SUCCESS)  
 SDL -> app: OnHMIStatus (HMILevel: FULL, audioStreamingState: NOT_AUDIBLE)
+
