@@ -14,18 +14,3 @@ WRONG_LANGUAGE
 RESUME_FAILED
 WARNINGS
 SUCCESS
-
-
-# Description   
-:white_small_square: point 1   
-:white_small_square: point 2
-### Use Case 1   
-####  :one: **Alternative flow**   
-**_Preconditions:_**    
-:grey_exclamation: _Exception:_   
-:point_right: :book: _Example:_    
-**_Steps:_**   
-**_Expected:_**   
-_RegisterAppInterface_   
-`<applicable resultCode>`   
-:information_source: Information   
