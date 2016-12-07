@@ -1,3 +1,4 @@
+## Detailed description.
 The expected result is the application registration on mobile device. SDL must registers application successfully. Flows for this event:   
 :white_small_square: SDL receives RegisterAppInterface RPC from mobile app or   
 :white_small_square: completely the same as in [PolicyTable](url) for the specified application.
