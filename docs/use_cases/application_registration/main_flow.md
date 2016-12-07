@@ -31,16 +31,5 @@ appID->SDL: RegisterAppInreface(params, appHMIType[]).
 SDL registers the app and assigns the appHMITypes to the application which are got in the request:
 SDL->app: (resultCode: SUCCESS, success: true): RegisterAppInterface().
 
-
-
-
-
-
 Related Diagrams
 Diagrams (for example activity diagram) describing this feature must be attached
-
-
-2.1. Alternative flow for one of the steps above + expected SDL behavior in this flow
-Describes alternative flow to Main flow described above.
-Example: Main flow describes valid and allowed AddCommand
-Alternative flow_1 -> app sends invalid request, for example
