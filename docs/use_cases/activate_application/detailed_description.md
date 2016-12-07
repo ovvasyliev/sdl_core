@@ -2,7 +2,7 @@
 
 HMI level of application varies according to Application HMI Type, policies, external environment and embedded sources.
 
-_HMI Level_
+### _HMI Level_
 
 | HMI Level Name        | Short description           |
 | ------------- |:-------------:|
@@ -11,7 +11,7 @@ _HMI Level_
 | BACKGROUND | An application is typically in Background when it is not being displayed by the HMI.|
 | NONE | When placed in None an application has no access to HMI supported resources.|
 
-_AudioStreamingState_
+### _AudioStreamingState_
 
 | Value     | Short description           |
 | ------------- |:-------------:|
@@ -19,7 +19,7 @@ _AudioStreamingState_
 |NOT_AUDIABLE|The app is in NOT_AUDIABLE when it is not allowed to stream audio and audio may not be heard by the user.|
 |ATTENAUTED|The app is in ATTENAUTED when it is allowed to stream audio, volume of sound is reduced to inject another prompt or system event audio over it (e.g. a navigation prompt).|
 
-_SystemContext_
+### _SystemContext_
 
 | Value     | Short description           |
 | ------------- |:-------------:|
@@ -33,20 +33,12 @@ _SystemContext_
 
 SDL must allow to activate app from any HMILevel.
 
-_**Pre-conditions:**_
-
-Application HMI Type: any 
-
-app_1 successfully registers on SDL _see_ [Application Registration] (https://github.com/LuxoftAKutsan/sdl_core/blob/feature/application_registration_use_case/docs/use_cases/application_registration/detailed_description.md)
-
-app_1 in other-than-NULL policies
-
-_**Steps:**_
-
-HMI -> SDL: SDL.ActivateApp (appID_1)
-
-_**Expected:**_
-
-SDL -> HMI: SDL.ActivateApp (SUCCESS)
-
+_**Pre-conditions:**_  
+Application HMI Type: any  
+app_1 successfully registers on SDL _see_ [Application Registration] (https://github.com/LuxoftAKutsan/sdl_core/blob/feature/application_registration_use_case/docs/use_cases/application_registration/detailed_description.md)  
+app_1 in other-than-NULL policies  
+_**Steps:**_  
+HMI -> SDL: SDL.ActivateApp (appID_1)  
+_**Expected:**_  
+SDL -> HMI: SDL.ActivateApp (SUCCESS)  
 SDL -> app_1: OnHMIStatus maximum possible HMILevel
