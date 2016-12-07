@@ -64,33 +64,33 @@ SDL -> app: OnHMIStatus (HMILevel: FULL, audioStreamingState: NOT_AUDIBLE)
 ---
 
 ####  :five: App activation during active embedded navigation source
-_**Pre-conditions:**_
-Application HMI Type – **Media app** or **Communication app**
-Media app in HMILevel: LIMITED and audioStreamingState: AUDIBLE
-Navi source state is active on HMI
-**Steps**
-HMI -> SDL: SDL. ActivateApp
-**Expected**
-SDL -> HMI: SDL. ActivateApp (SUCCESS)
-SDL -> app: OnHMIStatus (HMILevel: FULL, audioStreamingState: AUDIBLE)
-_note_ (embedded navigation is still active)
+_**Pre-conditions:**_  
+Application HMI Type – **Media app or Communication app**  
+Media app in HMILevel: LIMITED and audioStreamingState: AUDIBLE  
+Navi source state is active on HMI  
+_**Steps:**_  
+HMI -> SDL: SDL. ActivateApp  
+_**Expected:**_  
+SDL -> HMI: SDL. ActivateApp (SUCCESS)  
+SDL -> app: OnHMIStatus (HMILevel: FULL, audioStreamingState: AUDIBLE)  
+:grey_exclamation: _note_ (embedded navigation is still active)
 
-**Pre-conditions:**
-Application HMI Type – **Navigational app** 
-Navigation app in BACKGROUND and NOT_AUDIBLE
-Navi source state is active on HMI
-**Steps**
-HMI -> SDL: OnEventChanged (EMBEDDED_NAVI, isActive=false)
-HMI -> SDL.ActivateApp (<appID_of_navigation_app>) 
-**Expected**
-SDL -> HMI: SDL.ActivateApp (SUCCESS) 
+_**Pre-conditions:**_  
+Application HMI Type – **Navigational app**  
+Navigation app in BACKGROUND and NOT_AUDIBLE  
+Navi source state is active on HMI  
+_**Steps:**_  
+HMI -> SDL: OnEventChanged (EMBEDDED_NAVI, isActive=false)  
+HMI -> SDL.ActivateApp (<appID_of_navigation_app>)  
+_**Expected:**_  
+SDL -> HMI: SDL.ActivateApp (SUCCESS)  
 SDL -> app: OnHMIStatus (FULL, AUDIBLE) 
 
-**Pre-conditions:**
-Application HMI Type – **Non-media app**
-Non-media app in BACKGROUND and NOT_AUDIBLE due to **active embedded audio source or embedded navigation**
-**Steps**
-HMI -> SDL.ActivateApp(\<appID_of_non-media_app\>)
-**Expected**
-SDL -> HMI: SDL. ActivateApp (SUCCESS)
+_**Pre-conditions:**_  
+Application HMI Type – **Non-media app**  
+Non-media app in BACKGROUND and NOT_AUDIBLE due to **active embedded audio source or embedded navigation**  
+_**Steps:**_  
+HMI -> SDL.ActivateApp(\<appID_of_non-media_app\>)  
+_**Expected:**_  
+SDL -> HMI: SDL. ActivateApp (SUCCESS)  
 SDL -> app: OnHMIStatus (HMILevel: FULL, audioStreamingState: NOT_AUDIBLE)
