@@ -1,4 +1,5 @@
-**Detailed description**
+## **Detailed description**
+
 HMI level of application varies according to Application HMI Type, policies, external environment and embedded sources.
 
 _HMI Level_
@@ -29,13 +30,23 @@ _SystemContext_
 |ALERT|Broadcast only to whichever app has an alert currently being displayed.|
 
 ## **Main Flow**
-SDL must allow to activate app from any HMILevel
-**Pre-conditions:**
+
+SDL must allow to activate app from any HMILevel.
+
+_**Pre-conditions:**_
+
 Application HMI Type: any 
+
 app_1 successfully registers on SDL [link on Register app requirement]
+
 app_1 in other-than-NULL policies
-**Steps**
+
+_**Steps:**_
+
 HMI -> SDL: SDL.ActivateApp (appID_1)
-**Expected**
+
+_**Expected:**_
+
 SDL -> HMI: SDL.ActivateApp (SUCCESS)
+
 SDL -> app_1: OnHMIStatus maximum possible HMILevel
