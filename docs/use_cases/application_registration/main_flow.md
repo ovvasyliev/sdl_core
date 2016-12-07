@@ -8,7 +8,7 @@ In case RegisterAppInterface_request comes to SDL with correct structure and dat
 **_Preconditions:_**
 Application with appID is registering on SDL.
 Request data satisfies the conditions for successfull registration (for more details see RegisterAppInterface requirements).
-Request structure satisfies mobile API restrictions (see RegisterAppInterface request structure).
+Request structure satisfies mobile API restrictions (see RegisterAppInterface request structure).   
 **_Steps:_** appID->RegisterAppInterface(params).   
 _**Expected:**_   
 1) SDL successfully registers application and notifies HMI:
