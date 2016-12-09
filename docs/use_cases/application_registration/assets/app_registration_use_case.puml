@@ -1,0 +1,17 @@
+@startuml
+
+actor MobileApp as MOB
+actor SDL
+actor HMI
+(AppRegistration) as REG
+(PolicyUpdate) as POLICY
+
+:SDL: -> POLICY : Triggers
+
+:MOB: -> REG
+
+REG - :SDL:
+
+:SDL: -> :HMI: : Notify about new App
+
+@enduml
