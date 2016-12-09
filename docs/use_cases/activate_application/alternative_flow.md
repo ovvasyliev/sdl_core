@@ -1,7 +1,7 @@
 ## Alternative flow
-SDL is built with EXTERNAL_PROPRIETARY 
-User-consent "NO"
-User-consent "YES"
+SDL is built with EXTERNAL_PROPRIETARY  
+**User-consent "NO"**  
+**User-consent "YES"**
 
 ---
 
