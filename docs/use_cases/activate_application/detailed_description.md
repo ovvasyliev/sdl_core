@@ -43,4 +43,4 @@ _**Expected:**_
 SDL -> HMI: SDL.ActivateApp (SUCCESS)  
 SDL -> app_1: OnHMIStatus maximum possible HMILevel
 
-## Alternative flow
+## [Alternative flow](https://github.com/LuxoftAKutsan/sdl_core/blob/master/docs/use_cases/activate_application/alternative_flow.md)
