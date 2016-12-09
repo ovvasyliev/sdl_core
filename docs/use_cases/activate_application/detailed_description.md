@@ -34,7 +34,7 @@ HMI level of application varies according to Application HMI Type, policies, ext
 SDL must allow to activate app from any HMILevel.
 
 _**Pre-conditions:**_  
-Application HMI Type: any  
+Application HMI Type: any v 
 app_1 successfully registers on SDL _see_ [Application Registration] (https://github.com/LuxoftAKutsan/sdl_core/blob/feature/application_registration_use_case/docs/use_cases/application_registration/detailed_description.md)  
 app_1 in other-than-NULL policies  
 _**Steps:**_  
@@ -42,5 +42,11 @@ HMI -> SDL: SDL.ActivateApp (appID_1)
 _**Expected:**_  
 SDL -> HMI: SDL.ActivateApp (SUCCESS)  
 SDL -> app_1: OnHMIStatus maximum possible HMILevel
+
+**Related Diagram**
+|||
+App activation
+![]()
+
 
 ## [Alternative flow](https://github.com/LuxoftAKutsan/sdl_core/blob/master/docs/use_cases/activate_application/alternative_flow.md)
