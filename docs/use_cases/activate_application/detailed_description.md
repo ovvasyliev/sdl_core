@@ -44,9 +44,8 @@ SDL -> HMI: SDL.ActivateApp (SUCCESS)
 SDL -> app_1: OnHMIStatus maximum possible HMILevel
 
 **Related Diagram**
-|||
 App activation
-![]()
+![App activation](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/LuxoftAKutsan/sdl_core/master/docs/use_cases/activate_application/assets/activate_app_main_flow.puml)
 
 
 ## [Alternative flow](https://github.com/LuxoftAKutsan/sdl_core/blob/master/docs/use_cases/activate_application/alternative_flow.md)
