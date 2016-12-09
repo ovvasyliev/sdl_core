@@ -1,17 +1,10 @@
 @startuml
-
-actor MobileApp as MOB
-actor SDL
+left to right direction
+actor Mobile
 actor HMI
-(AppRegistration) as REG
-(PolicyUpdate) as POLICY
-
-:SDL: -> POLICY : Triggers
-
-:MOB: -> REG
-
-REG - :SDL:
-
-:SDL: -> :HMI: : Notify about new App
-:HMI: -> (UI) : Show app in app list
+rectangle SDL {
+  Mobile -- (Activate Applicaiton)
+  (Activate Applicaiton) .> (Policy Update) : triggers
+  (Activate Applicaiton) -- HMI
+}
 @enduml
