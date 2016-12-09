@@ -1,9 +1,11 @@
 ## Alternative flow
 SDL is built with EXTERNAL_PROPRIETARY 
-####  :one: User-consent "NO"
-####  :two: User-consent "YES"
+User-consent "NO"
+User-consent "YES"
+
 ---
-####  :three: App activation during active phone call  
+
+#### App activation during active phone call  
 
 Application HMI Type: Media  
 OnEventChanged(PHONE_CALL, isActive=true)  
@@ -20,7 +22,7 @@ SDL -> app: OnHMIStatus ("HMILevel: FULL, audioStreamingState: AUDIBLE")
 
 ---
 
-####  :four: App activation during active embedded audio source  
+#### App activation during active embedded audio source  
 _**Pre-conditions:**_  
 Application HMI Type – **Media app  or Communication**  
 App in HMILevel: BACKGROUND and audioStreamingState: NOT_AUDIBLE   
@@ -63,7 +65,7 @@ SDL -> app: OnHMIStatus (HMILevel: FULL, audioStreamingState: NOT_AUDIBLE)
 
 ---
 
-####  :five: App activation during active embedded navigation source
+#### App activation during active embedded navigation source
 _**Pre-conditions:**_  
 Application HMI Type – **Media app or Communication app**  
 Media app in HMILevel: LIMITED and audioStreamingState: AUDIBLE  
