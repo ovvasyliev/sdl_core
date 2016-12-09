@@ -10,3 +10,10 @@ Until the application receives its first OnHMIStatus Notification, its [HMI Stat
 In case last connection was unexpectedly closed, application
 in case application was unexpected disconnect last time, resumption will be triggered.
 Additional information available: [Resumption](url).
+
+Application's VRsynonyms should NOT be checked for uniqueness through all other registered applications VRsynonyms.   
+In case the app registers with the same "appName" as one of already registered "vrSynonyms" of other applications, SDL returns "resultCode: DUPLICATE_NAME, success: false" to such app.
+
+SDL is case-insensetive when comparing the value of "appName" received within RegisterAppInterface against the value(s) of "nicknames" section for the corresponding appID provided by the application.   
+SDL is case-insensetive when comparing the value of "appID" received within RegisterAppInterface against the value(s) of "app_policies" section.   
+TTSName should not be checked for uniqueness against any of other parameters (within RegisterAppInterface or other registered applications). 
