@@ -13,5 +13,5 @@ actor HMI
 REG - :SDL:
 
 :SDL: -> :HMI: : Notify about new App
-
+:HMI: -> (UI) : Show app in app list
 @enduml
