@@ -1,7 +1,8 @@
 ### Use Case 1. RegisterAppInterface - main flow (SUCCESS).
 
-#### 1 **Main Flow - SUCCESS.**
-In case RegisterAppInterface_request comes to SDL with correct structure and data and successfuly registered on SDL, SDL
+#### 1. **Main Flow - SUCCESS.**
+In case RegisterAppInterface_request comes to SDL with correct structure and data and successfuly registered on SDL,   
+SDL:   
 1) notifies HMI with OnAppRegistered (Link) notification about application registering.   
 2) responds with resultCode "SUCCESS" and success:"true" value to mobile application.
 
