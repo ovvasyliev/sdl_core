@@ -17,3 +17,5 @@ In case the app registers with the same "appName" as one of already registered "
 SDL is case-insensetive when comparing the value of "appName" received within RegisterAppInterface against the value(s) of "nicknames" section for the corresponding appID provided by the application.   
 SDL is case-insensetive when comparing the value of "appID" received within RegisterAppInterface against the value(s) of "app_policies" section.   
 TTSName should not be checked for uniqueness against any of other parameters (within RegisterAppInterface or other registered applications). 
+
+![Activity diagramm](ttp://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/LuxoftAKutsan/sdl_core/feature/application_registration_use_case/docs/use_cases/application_registration/assets/activity_diagramm.puml)
