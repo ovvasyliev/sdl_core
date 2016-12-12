@@ -1,0 +1,10 @@
+@startuml
+Application -> SDL: \n\nRegisterAppInterface(params***)
+note left of Application: application with appID\nregisters on SDL 
+note right of HMI:*******\ **params** :{\n**application**:{appName,\n**deviceInfo**:{name,id,transportType}\npolicyAppID, appID}\nttsName,vrSynonyms
+SDL -> HMI: BC.OnAppRegistered(params, hmi_appID) 
+note right of SDL: ****RPC**:{AddCommand (Menu+VR)\n-AddSubMenu\n-CreateInteractionChoiceSet\n-SetGlobalProperties\n-SubscribeVehicleData}
+note left of HMI:****RPC**:{AddCommand (Menu+VR)\n->DeleteCommand,\n->DeleteSubMenu,\n->DeleteInteractionChoiceSet,\n->ResetGlobalProperties,\n->UnsubscribeButton,\n->UnsubscribeVehicleData}
+SDL ---> Application: SUCCESS:RegisterAppInterface  
+SDL -> Application: \n\n[On each successful RPC** execution]\n\n**OnHashChanged(hashID)**
+@enduml
