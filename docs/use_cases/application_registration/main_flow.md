@@ -6,8 +6,6 @@ SDL:
 1) notifies HMI with OnAppRegistered (Link) notification about application registering.   
 2) responds with resultCode "SUCCESS" and success:"true" value to mobile application.
 
-![Application registration use case](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/LuxoftAKutsan/sdl_core/feature/application_registration_use_case/docs/use_cases/application_registration/assets/RegisterAppInterface_standard_sequence_diagram.puml?)
-
 **_Preconditions:_**
 Application with appID is registering on SDL.
 Request data satisfies the conditions for successfull registration (for more details see RegisterAppInterface requirements).
@@ -24,3 +22,4 @@ SDL->app: OnHMIStatus(hmiLevel,audioStreamingState, systemContext).
 SDL->app: OnPermissionsChange (params).
 
 Related Diagrams
+![Application registration use case](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/LuxoftAKutsan/sdl_core/feature/application_registration_use_case/docs/use_cases/application_registration/assets/RegisterAppInterface_standard_sequence_diagram.puml?)
