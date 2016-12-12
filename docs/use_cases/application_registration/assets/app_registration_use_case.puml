@@ -3,8 +3,8 @@ left to right direction
 actor Mobile
 actor HMI
 rectangle SDL {
-  Mobile -> (Regiter Applicaiton)
-  (Regiter Applicaiton) .> (Policy Update) : triggers
-  (Regiter Applicaiton) -- HMI
+  Mobile -> (Register Application)
+  (Register Application) .> (Policy Update) : triggers
+  (Register Application) -- HMI
 }
 @enduml
