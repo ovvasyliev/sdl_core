@@ -24,10 +24,10 @@ _**Expected:**_
 
 **User-consent "YES"**  
 _**Pre-conditions:**_  
-SDL and HMI are running
-\<Device> is connected to SDL and consented by the User, \<App> is running on that device.
-\<App> is registered with SDL and is present in HMI list of registered aps.
-d. Local PT has permissions for \<App> that require User`s consent.  
+SDL and HMI are running  
+\<Device> is connected to SDL and consented by the User, \<App> is running on that device.  
+\<App> is registered with SDL and is present in HMI list of registered aps.  
+Local PT has permissions for \<App> that require User`s consent.  
 _**Steps:**_  
 1. Choose \<App> in the list of registered aps on HMI.  
 2. HMI->SDL: SDL.ActivateApp
