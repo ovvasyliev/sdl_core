@@ -15,20 +15,21 @@ _**Steps:**_
 {messages: "tts": "To use mobile apps with SYNC, SYNC will communicate with Ford at least once per month using your mobile device's data plan. Standard rates may apply. SYNC will send your VIN and SYNC module number to Ford U.S. Please press yes or no, or help for more information. ", "line1": "Enable Mobile Apps", "line2": "on SYNC? (Uses Data)"}  
 6. HMI: request for user consent for device from UI: displaying Yes/No buttons  
 7. Press **'No'**  
-8. HMI->SDL: OnAllowSDLFunctionality  
+_**Expected:**_  
+1. HMI->SDL: OnAllowSDLFunctionality  
 {allowed: false, params}  
-9. SDL->app: OnPermissionChanged{params} ("pre_DataConsent" sub-section of "app_policies" section of PT)  
-10. app`s HMI level corresponds to one from "default_hmi" field (it does not matter whether the app ID exists in local PT or does not exist)  
-11. HMI displays the list of registered applications. App from step 1 is NOT activated.
+2. SDL->app: OnPermissionChanged{params} ("pre_DataConsent" sub-section of "app_policies" section of PT)  
+3. app`s HMI level corresponds to one from "default_hmi" field (it does not matter whether the app ID exists in local PT or does not exist)  
+4. HMI displays the list of registered applications. App from step 1 is NOT activated.
 
 **User-consent "YES"**  
 _**Pre-conditions:**_  
 SDL and HMI are running
-<Device> is connected to SDL and consented by the User, <App> is running on that device.
-<App> is registered with SDL and is present in HMI list of registered aps.
-d. Local PT has permissions for <App> that require User`s consent.  
+\<Device> is connected to SDL and consented by the User, \<App> is running on that device.
+\<App> is registered with SDL and is present in HMI list of registered aps.
+d. Local PT has permissions for \<App> that require User`s consent.  
 _**Steps:**_  
-1. Choose <App> in the list of registered aps on HMI.  
+1. Choose \<App> in the list of registered aps on HMI.  
 2. HMI->SDL: SDL.ActivateApp
 {appID}  
 3. SDL->HMI: SDL.ActivateApp_response{isPermissionsConsentNeeded: true, params} //HMI does not activete the app  
@@ -37,9 +38,10 @@ _**Steps:**_
 6. HMI->SDL: GetListOfPermissions{appID}  
 7. SDL->HMI: GetListOfPermissions_response{}  
 8. HMI: display the 'app permissions consent' message.  
-9. The User allows or disallows displayed permissions.  
-10. HMI->SDL: OnAppPermissionConsent  
-11. PoliciesManager: update "<appID>" subsection of "user_consent_records" subsection of "<device_identifier>" section of "device_data" section in Local PT.
+9. The User allows or disallows displayed permissions  
+_**Expected:**_  
+1. HMI->SDL: OnAppPermissionConsent  
+2. PoliciesManager: update \<appID> subsection of "user_consent_records" subsection of \<device_identifier> section of "device_data" section in Local PT.
 
 
 ---
