@@ -1,0 +1,19 @@
+@startuml
+(*) --> "App send Registration Request"
+if "Check possibility of registration" then 
+    -->[Is not able to register] "Respond success=false"
+    --> (*)
+else
+    -->[Is able to register] "Respond success=true"
+    --> Notify HMI about new registered application
+    --> Provide NONE Hmi level to application
+    --> Assign default permissions and send OnPermissionsChange to Mobile
+    if "Last disconnect was unexpected?"
+        --> [Yes] Restore applicaiotn Data
+        --> Restore last applicaion hmi state
+        --> (*)
+    else
+        --> [No] (*)
+    endif
+endif
+@enduml
