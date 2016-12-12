@@ -31,7 +31,8 @@ and UI and [VR or TTS] languages from RegisterAppInterface does NOT match to UI 
 SDL responds RegisterAppInterface (WRONG_LANGUAGE, success:true, `<stored_UI_languages>`, `<stored_VR_or_TTS_languages>`) to mobile app.
 
 #### 4. **Alternative flow - UNSUPPORTED_RESOURCE.**
-**_Preconditions:_** application with appID is registered on SDL an RPC references a few components on HMI (UI and/or TTS and/or VR).    **_Steps:_** app->SDL: RPC(params)   
+**_Preconditions:_** application with appID is registered on SDL an RPC references a few components on HMI (UI and/or TTS and/or VR).   
+**_Steps:_** app->SDL: RPC(params)   
 SDL->UI.RPC()   
 SDL->VR.RPC()   
 SDL->TTS.RPC()    
@@ -52,4 +53,27 @@ app->SDL: ResgiterAppInterface(params, AppHMIType[`<appHMIType_1>`, `<appHMIType
 **_Expected:_**   
 1) SDL allows AppHMIType that exists in local PT for appID.   
 2) SDL disallows AppHMIType that does not exist in local PT for appID.   
-3) SDL->apps: (WARNINGS, success: true, 'info': "all HMI types that are got in request but disallowed: `<appHMIType_1>`, `<appHMIType_2>`):RegisterAppInterface().
+3) SDL->apps: (WARNINGS, success: true, 'info': "all HMI types that are got in request but disallowed: `<appHMIType_1>`, `<appHMIType_2>`):RegisterAppInterface().   
+
+#### 6. **Alternative flow - RESUME_FAILED.**   
+In case `<hashID>` of the application registered doesn't equal stored value for the application, SDL interrupts data resumption process:    
+a. return RegisterAppInterface_response (success: true, resultCode: RESUME_FAILED);   
+b. notify HMI by OnAppRegistered (resumeVrGrammars:false) to restore VRgrammars persisted on HMI;   
+c. clean up all stored application related data:    
+• AddCommand (Menu+VR);   
+• AddSubMenu;   
+• CreateInteractionChoiceSet;   
+• SetGlobalProperties;   
+• SubscribeButton;   
+• SubscribeVehicleData;   
+• SubscribeWayPoints;  
+d. start data persistance process from the begining for the current application (see also).   
+:information_source: Note: It's application's responsibility to re-send all application data to SDL after RESUME_FAILED.   
+:information_source: Note: HMI cleans up persisted Vrgrammars data by itself after getting resumeVrGrammars:false.   
+**_Preconditions:_** application with appID running on deviceID was disconnected by unexpected disconnect/IGN_Off less than 3 ignition cycles.   
+**_Steps:_** app->SDL: RegisterAppInterface(appID, params) //hashID sent is NOT the same as stored for the pair `<appID, deviceID>` on SDL.    
+**_Expected:_**   
+1. SDL checks hashID obtained against of hashID stored for `<appID, deviceID>` //NOT the same as the stored one for the pair `<appID, deviceID>` on SDL.   
+2. SDL->appID: RESUME_FAILED:RegisterAppInterface().   
+3. SDL->HMI: OnAppRegistered(params, resumeVrGrammars:false).   
+5. SDL cleans up the persisted data stored fot pair `<appID, deviceID>`.   
