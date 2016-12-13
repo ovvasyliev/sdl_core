@@ -122,18 +122,3 @@ SDL responds APPLICATION_NOT_REGISTERED to this mobile app.
 2) the Request one of the defined in mobile API is intended to be sent from mobile applicaton with appID before RegisterAppInterface got on SDL.   
 **_Steps:_** appID->SDL: any_RPC_except_RAI(parameters).    
 **_Expected:_** SDL->appID: any_RPC_except_RAI (APPLICATION_NOT_REGISTERED, success:"false").
-
-
-**_Preconditions:_**    
-**_Steps:_**    
-**_Expected:_**
-
-
-**_Preconditions:_**    
-**_Steps:_**    
-**_Expected:_**
-
-
-**_Preconditions:_**    
-**_Steps:_**    
-**_Expected:_**
