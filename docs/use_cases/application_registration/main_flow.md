@@ -21,5 +21,5 @@ SDL->app: OnHMIStatus(hmiLevel,audioStreamingState, systemContext).
 4) SDL assigns the appropriate policies and notifies application:
 SDL->app: OnPermissionsChange (params).
 
-Related Diagrams
-![Application registration use case](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/LuxoftAKutsan/sdl_core/feature/application_registration_use_case/docs/use_cases/application_registration/assets/RegisterAppInterface_standard_sequence_diagram.puml?)
+_**Related Diagram:**_
+![Application registration use case](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/LuxoftAKutsan/sdl_core/feature/application_registration_use_case/docs/use_cases/application_registration/assets/RegisterAppInterface_standard_sequence_diagram.puml??)
