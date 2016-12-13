@@ -19,7 +19,7 @@ _**Expected:**_
 1. HMI->SDL: OnAllowSDLFunctionality  
 {allowed: false, params}  
 2. SDL->app: OnPermissionChanged{params} ("pre_DataConsent" sub-section of "app_policies" section of PT)  
-3. app`s HMI level corresponds to one from "default_hmi" field (it does not matter whether the app ID exists in local PT or does not exist)  
+3. app's HMI level corresponds to one from "default_hmi" field (it does not matter whether the app ID exists in local PT or does not exist)  
 4. HMI displays the list of registered applications. App from step 1 is NOT activated.
 
 **User-consent "YES"**  
@@ -27,7 +27,7 @@ _**Pre-conditions:**_
 SDL and HMI are running  
 \<Device> is connected to SDL and consented by the User, \<App> is running on that device.  
 \<App> is registered with SDL and is present in HMI list of registered aps.  
-Local PT has permissions for \<App> that require User`s consent.  
+Local PT has permissions for \<App> that require User's consent.  
 _**Steps:**_  
 1. Choose \<App> in the list of registered aps on HMI.  
 2. HMI->SDL: SDL.ActivateApp
