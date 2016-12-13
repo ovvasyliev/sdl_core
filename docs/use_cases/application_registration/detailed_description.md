@@ -1,5 +1,5 @@
 ## Detailed description.
-The expected result is the application registration on mobile device. SDL must registers application successfully. Flows for this event:   
+The expected result is the application registration on mobile device. SDL registers application successfully. Flows for this event:   
 SDL receives RegisterAppInterface RPC from mobile app or completely the same as in [PolicyTable](url) for the specified application.
 
 After successful registration application should receive OnHMIStatus notification and OnPermissionChange notification.
