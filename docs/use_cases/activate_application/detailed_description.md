@@ -28,8 +28,3 @@ HMI level of application varies according to Application HMI Type, policies, ext
 |MENU|The system is currently displaying an in-App menu onscreen.|
 |HMI_OBSCURED|The app's display HMI is currently being obscured by either a system or other app's overlay.|
 |ALERT|Broadcast only to whichever app has an alert currently being displayed.|
-
-
-
-
-## [Alternative flow](https://github.com/LuxoftAKutsan/sdl_core/blob/master/docs/use_cases/activate_application/alternative_flow.md)
