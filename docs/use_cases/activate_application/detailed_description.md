@@ -29,25 +29,7 @@ HMI level of application varies according to Application HMI Type, policies, ext
 |HMI_OBSCURED|The app's display HMI is currently being obscured by either a system or other app's overlay.|
 |ALERT|Broadcast only to whichever app has an alert currently being displayed.|
 
-# **Main Flow**
 
-SDL must allow to activate app from any HMILevel.
-
-_**Pre-conditions:**_  
-Application HMI Type: any v 
-app_1 successfully registers on SDL _see_ [Application Registration] (https://github.com/LuxoftAKutsan/sdl_core/blob/feature/application_registration_use_case/docs/use_cases/application_registration/detailed_description.md)  
-app_1 in other-than-NULL policies  
-_**Steps:**_  
-HMI -> SDL: SDL.ActivateApp (appID_1)  
-_**Expected:**_  
-SDL -> HMI: SDL.ActivateApp (SUCCESS)  
-SDL -> app_1: OnHMIStatus maximum possible HMILevel
-
-**Related Diagram**
-
-App activation
-
-![App activation](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/LuxoftAKutsan/sdl_core/master/docs/use_cases/activate_application/assets/activate_app_main_flow.puml)
 
 
 ## [Alternative flow](https://github.com/LuxoftAKutsan/sdl_core/blob/master/docs/use_cases/activate_application/alternative_flow.md)
