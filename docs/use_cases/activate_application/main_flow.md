@@ -14,4 +14,4 @@ SDL -> appID: OnHMIStatus maximum possible HMILevel
 
 App activation
 
-![App activation](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/LuxoftAKutsan/sdl_core/master/docs/use_cases/activate_application/assets/activate_app_main_flow.puml)
+![App activation](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/LuxoftAKutsan/sdl_core/feature/activate_application_use_case_requirements/docs/use_cases/activate_application/assets/activate_app_main_flow.puml)  
