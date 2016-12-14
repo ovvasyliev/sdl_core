@@ -3,8 +3,8 @@ left to right direction
 actor Mobile
 actor HMI
 rectangle SDL {
-  HMI -> (Applicaiton Activation)
-  (Applicaiton Activation) .> (Policy Update) : triggers
-  (Applicaiton Activation) .> Mobile : HMI Status notiifcation
+  HMI -> (Application Activation)
+  (Application Activation) .> (Policy Update) : triggers
+  (Application Activation) .> Mobile : HMI Status notification
 }
 @enduml
