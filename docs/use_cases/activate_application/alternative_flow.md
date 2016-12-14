@@ -53,7 +53,7 @@ SDL -> HMI: SDL.ActivateApp (SUCCESS)
 SDL -> app: OnHMIStatus ("HMILevel: FULL, audioStreamingState: NOT_AUDIBLE")  
 _when phone call ends_  
 SDL -> HMI: (PHONE_CALL, isActive=false)  
-SDL -> app: OnHMIStatus ("HMILevel: FULL, audioStreamingState: AUDIBLE")
+SDL -> appID: OnHMIStatus ("HMILevel: FULL, audioStreamingState: AUDIBLE")
 
 
 ### Use Case 3: App activation during active embedded audio source - alternative flow  
@@ -65,7 +65,7 @@ _**Steps:**_
 HMI -> SDL: OnEventChanged (AUDIO_SOURCE, isActive=false)   
 HMI -> SDL: SDL. ActivateApp  
 _**Expected:**_  
-SDL ->app: OnHMIStatus (HMILevel: FULL, audioStreamingState: AUDIBLE)
+SDL ->appID: OnHMIStatus (HMILevel: FULL, audioStreamingState: AUDIBLE)
 
 _**Preconditions:**_  
 Application HMI Type – **Navigation app**  
@@ -75,7 +75,7 @@ Audio source state is active on HMI
 _**Steps:**_  
 HMI -> SDL.ActivateApp (\<appID_of_navigation_app\>)  
 _**Expected:**_    
-SDL ->app: OnHMIStatus (HMILevel: FULL, audioStreamingState: AUDIBLE)
+SDL ->appID: OnHMIStatus (HMILevel: FULL, audioStreamingState: AUDIBLE)
 
 :grey_exclamation: **options**  
 plication HMI Type – **Navigation app**  
@@ -86,7 +86,7 @@ _**Steps:**_
 HMI -> SDL.ActivateApp (\<appID_of_navigation_app\>)  
 _**Expected:**_  
 SDL -> HMI: SDL. ActivateApp (SUCCESS)  
-SDL -> app: OnHMIStatus (HMILevel: FULL, audioStreamingState: AUDIBLE)
+SDL -> appID: OnHMIStatus (HMILevel: FULL, audioStreamingState: AUDIBLE)
 
 _**Preconditions:**_  
 Application HMI Type – **Non-media app**  
@@ -95,7 +95,7 @@ _**Steps:**_
 HMI -> SDL.ActivateApp(\<appID_of_non-media_app\>)  
 _**Expected:**_   
 SDL -> HMI: SDL. ActivateApp (SUCCESS)  
-SDL -> app: OnHMIStatus (HMILevel: FULL, audioStreamingState: NOT_AUDIBLE)
+SDL -> appID: OnHMIStatus (HMILevel: FULL, audioStreamingState: NOT_AUDIBLE)
 
 
 ### Use Case 4: App activation during active embedded navigation source - alternative flow 
@@ -107,7 +107,7 @@ _**Steps:**_
 HMI -> SDL: SDL. ActivateApp  
 _**Expected:**_  
 SDL -> HMI: SDL. ActivateApp (SUCCESS)  
-SDL -> app: OnHMIStatus (HMILevel: FULL, audioStreamingState: AUDIBLE)  
+SDL -> appID: OnHMIStatus (HMILevel: FULL, audioStreamingState: AUDIBLE)  
 :grey_exclamation: _note_ (embedded navigation is still active)
 
 _**Preconditions:**_  
@@ -119,7 +119,7 @@ HMI -> SDL: OnEventChanged (EMBEDDED_NAVI, isActive=false)
 HMI -> SDL.ActivateApp (\<appID_of_navigation_app\>)  
 _**Expected:**_  
 SDL -> HMI: SDL.ActivateApp (SUCCESS)  
-SDL -> app: OnHMIStatus (FULL, AUDIBLE) 
+SDL -> appID: OnHMIStatus (FULL, AUDIBLE) 
 
 _**Preconditions:**_  
 Application HMI Type – **Non-media app**  
@@ -128,5 +128,5 @@ _**Steps:**_
 HMI -> SDL.ActivateApp(\<appID_of_non-media_app\>)  
 _**Expected:**_  
 SDL -> HMI: SDL. ActivateApp (SUCCESS)  
-SDL -> app: OnHMIStatus (HMILevel: FULL, audioStreamingState: NOT_AUDIBLE)
+SDL -> appID: OnHMIStatus (HMILevel: FULL, audioStreamingState: NOT_AUDIBLE)
 
