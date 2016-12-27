@@ -23,6 +23,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   cppcheck \
   automake1.11 \
   libexpat1-dev \
+  libbluetooth3 \
+  libbluetooth-dev \
   ccache \
   git \
   gcc \
