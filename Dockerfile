@@ -40,8 +40,6 @@ RUN update-alternatives --config gcc
 RUN update-alternatives --config g++
 RUN sudo ln -sf /usr/bin/gcov-4.9 /usr/bin/gcov
 
-RUN pip install pylint
-
 RUN git clone -b $CORE_BRANCH https://github.com/smartdevicelink/sdl_core.git $CORE_CWD 
 
 WORKDIR $CORE_CWD
