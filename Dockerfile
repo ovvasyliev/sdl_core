@@ -27,10 +27,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   git \
   gcc \
   g++ \
-  html2text
+  html2text \
+  curl
 
 
-RUN wget http://archive.ubuntu.com/ubuntu/pool/main/l/lcov/lcov_1.11-3_all.deb
+RUN curl -O http://archive.ubuntu.com/ubuntu/pool/main/l/lcov/lcov_1.11-3_all.deb
 RUN sudo dpkg -i lcov_1.11-3_all.deb
 RUN apt-get -y install g++-4.9 gcc-4.9
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
