@@ -44,8 +44,9 @@ RUN git clone -b $CORE_BRANCH https://github.com/smartdevicelink/sdl_core.git $C
 
 WORKDIR $CORE_CWD
 RUN bash -e tools/infrastructure/check_style.sh
-RUN mkdir build && cd build
-RUN pwd && cmake -DUSE_DISTCC=OFF -DCMAKE_BUILD_TYPE=Release -DENABLE_LOG=OFF -DBUILD_TESTS=ON -DENABLE_GCOV=ON ..
+RUN mkdir build
+WORKDIR $CORE_CWD/build
+RUN cmake -DUSE_DISTCC=OFF -DCMAKE_BUILD_TYPE=Release -DENABLE_LOG=OFF -DBUILD_TESTS=ON -DENABLE_GCOV=ON ..
 RUN make 
 RUN sudo ldconfig	
 RUN make test
