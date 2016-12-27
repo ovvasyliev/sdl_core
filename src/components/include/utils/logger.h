@@ -42,9 +42,6 @@
 #include "utils/push_log.h"
 #include "utils/logger_status.h"
 #include "utils/auto_trace.h"
-#endif  // ENABLE_LOG
-
-#ifdef ENABLE_LOG
 
 #define CREATE_LOGGERPTR_GLOBAL(logger_var, logger_name) \
   namespace {                                            \
