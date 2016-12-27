@@ -43,10 +43,9 @@ RUN sudo ln -sf /usr/bin/gcov-4.9 /usr/bin/gcov
 RUN git clone -b $CORE_BRANCH https://github.com/smartdevicelink/sdl_core.git $CORE_CWD 
 
 WORKDIR $CORE_CWD
-RUN cd $CORE_CWD
 RUN bash -e tools/infrastructure/check_style.sh
 RUN mkdir build && cd build
-RUN cmake -DUSE_DISTCC=OFF -DCMAKE_BUILD_TYPE=Release -DENABLE_LOG=OFF -DBUILD_TESTS=ON -DENABLE_GCOV=ON ..
+RUN pwd && cmake -DUSE_DISTCC=OFF -DCMAKE_BUILD_TYPE=Release -DENABLE_LOG=OFF -DBUILD_TESTS=ON -DENABLE_GCOV=ON ..
 RUN make 
 RUN sudo ldconfig	
 RUN make test
