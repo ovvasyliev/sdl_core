@@ -1,7 +1,7 @@
 FROM ubuntu:trusty
 
 ENV CORE_BRANCH=develop \
-    CORE_CWD=/usr/sdl
+    CORE_CWD=/tmp/sdl
 
 RUN sudo apt-get update
 RUN apt-get install -y software-properties-common python-software-properties
@@ -43,7 +43,7 @@ RUN sudo ln -sf /usr/bin/gcov-4.9 /usr/bin/gcov
 RUN git clone -b $CORE_BRANCH https://github.com/smartdevicelink/sdl_core.git $CORE_CWD 
 
 WORKDIR $CORE_CWD
-
+RUN cd $CORE_CWD
 RUN bash -e tools/infrastructure/check_style.sh
 RUN mkdir build && cd build
 RUN cmake -DUSE_DISTCC=OFF -DCMAKE_BUILD_TYPE=Release -DENABLE_LOG=OFF -DBUILD_TESTS=ON -DENABLE_GCOV=ON ..
