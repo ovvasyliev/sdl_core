@@ -33,6 +33,7 @@
 #ifndef SRC_COMPONENTS_UTILS_INCLUDE_UTILS_LOG_MESSAGE_LOOP_THREAD_H_
 #define SRC_COMPONENTS_UTILS_INCLUDE_UTILS_LOG_MESSAGE_LOOP_THREAD_H_
 
+#ifdef ENABLE_LOG
 #include <string>
 #include <queue>
 #include <log4cxx/logger.h>
@@ -71,4 +72,5 @@ class LogMessageLoopThread : public LogMessageLoopThreadTemplate {
 
 }  // namespace logger
 
+#endif  // ENABLE_LOG
 #endif  // SRC_COMPONENTS_UTILS_INCLUDE_UTILS_LOG_MESSAGE_LOOP_THREAD_H_
