@@ -2,11 +2,11 @@ FROM ubuntu:trusty
 
 ENV CORE_BRANCH=develop \
     CORE_CWD=/usr/sdl
-    
+
 RUN sudo apt-get update
+RUN apt-get install -y software-properties-common python-software-properties
 RUN sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 RUN sudo apt-get -qq update
-
 
 # Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
