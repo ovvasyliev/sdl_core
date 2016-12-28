@@ -33,14 +33,7 @@
 #ifndef SRC_COMPONENTS_UTILS_INCLUDE_UTILS_LOG_MESSAGE_LOOP_THREAD_H_
 #define SRC_COMPONENTS_UTILS_INCLUDE_UTILS_LOG_MESSAGE_LOOP_THREAD_H_
 
-#define STRING2(x) #x
-#define STRING(x) STRING2(x)
-
-#pragma message "ENABLE_LOG = " STRING(ENABLE_LOG)
-
 #ifdef ENABLE_LOG
-
-#pragma message "ENABLE_LOG = " STRING(ENABLE_LOG)
 
 #include <string>
 #include <queue>
