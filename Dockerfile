@@ -47,10 +47,7 @@ RUN git checkout develop
 RUN bash -e tools/infrastructure/check_style.sh
 RUN mkdir build
 WORKDIR $CORE_CWD/build
-RUN cmake -DUSE_DISTCC=OFF -DCMAKE_BUILD_TYPE=Release -DENABLE_LOG=OFF -DBUILD_TESTS=ON -DENABLE_GCOV=ON ..
+RUN cmake -DUSE_DISTCC=OFF -DCMAKE_BUILD_TYPE=Release -DENABLE_LOG=OFF -DBUILD_TESTS=ON  ..
 RUN make 
 RUN sudo ldconfig	
 RUN make test
-RUN bash -ex ../tools/infrastructure/collect_coverage.sh ./
-RUN bash <(curl -s https://codecov.io/bash) -f ./coverage/coverage.info || echo "Codecov did not collect coverage reports"
-
