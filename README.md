@@ -1,6 +1,6 @@
 [![Slack Status](http://sdlslack.herokuapp.com/badge.svg)](http://slack.smartdevicelink.com)
 
-[![Build Status](https://travis-ci.org/smartdevicelink/sdl_core.svg?branch=master)](https://travis-ci.org/smartdevicelink/sdl_core)
+[![Build Status](https://travis-ci.org/LuxoftAKutsan/sdl_core.svg?branch=develop)](https://travis-ci.org/LuxoftAKutsan/sdl_core)
 
  [![codecov.io](https://codecov.io/github/smartdevicelink/sdl_core/coverage.svg?branch=develop)](https://codecov.io/github/smartdevicelink/sdl_core?branch=develop)
 
