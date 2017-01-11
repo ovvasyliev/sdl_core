@@ -20,7 +20,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   python \
   sudo \
   sqlite3 \
-  cppcheck \
   automake1.11 \
   libexpat1-dev \
   libbluetooth3 \
@@ -29,7 +28,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   git \
   gcc \
   g++ \
-  html2text \
   curl
 
 
@@ -45,6 +43,7 @@ RUN sudo ln -sf /usr/bin/gcov-4.9 /usr/bin/gcov
 RUN git clone -b $CORE_BRANCH https://github.com/LuxoftAKutsan/sdl_core.git $CORE_CWD 
 
 WORKDIR $CORE_CWD
+RUN git checkout develop
 RUN bash -e tools/infrastructure/check_style.sh
 RUN mkdir build
 WORKDIR $CORE_CWD/build
