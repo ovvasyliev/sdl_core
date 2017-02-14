@@ -2128,7 +2128,6 @@ void PolicyHandler::OnUpdateHMIStatus(const std::string& device_id,
                    << app->app_id() << " to default hmi level " << level);
   // Set application hmi level
   application_manager_.ChangeAppsHMILevel(app->app_id(), level);
-  MessageHelper::SendHMIStatusNotification(*app, application_manager_);
 }
 
 void PolicyHandler::ChangeAppsHMILevel(const std::string& device_id,
@@ -2189,7 +2188,7 @@ void PolicyHandler::OnUpdateHMIStatus(const std::string& device_id,
   }
 
   if (rank == mobile_apis::DeviceRank::DRIVER) {
-    MessageHelper::SendHMIStatusNotification(*app, application_manager_, rank);
+    application_manager_.ChangeAppsHMILevel(app->app_id(), level);
     LOG4CXX_DEBUG(logger_, "Device rank: " << rank);
     return;
   }
@@ -2198,7 +2197,6 @@ void PolicyHandler::OnUpdateHMIStatus(const std::string& device_id,
                    << app->app_id() << " to default hmi level " << level);
   // Set application hmi level
   application_manager_.ChangeAppsHMILevel(app->app_id(), level);
-  MessageHelper::SendHMIStatusNotification(*app, application_manager_, rank);
 }
 
 bool PolicyHandler::GetModuleTypes(const std::string& policy_app_id,
