@@ -1963,6 +1963,11 @@ void PolicyHandler::SetPrimaryDevice(const PTString& dev_id) {
                                    << app->policy_app_id());
       policy_manager_->OnChangedPrimaryDevice(devices[app->device()],
                                               app->policy_app_id());
+      if (app->device() == device_handle) {
+          application_manager_.state_controller().SetRegularState(app, mobile_apis::DeviceRank::DRIVER);
+      } else {
+          application_manager_.state_controller().SetRegularState(app, mobile_apis::DeviceRank::PASSENGER);
+      }
     }
   }
 }
