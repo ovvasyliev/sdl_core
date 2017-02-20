@@ -371,9 +371,8 @@ struct MetaInfo {
 enum EntityStatus { kStatusOn, kStatusOff };
 
 /**
- * @brief The ExternalConsentStatusItem struct represents customer connectivity
- * settings
- * item
+ * @brief The ExternalConsentStatusItem struct represents external user consent
+ * settings item
  */
 struct ExternalConsentStatusItem {
   ExternalConsentStatusItem(const uint32_t type,
