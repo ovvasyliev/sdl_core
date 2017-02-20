@@ -276,8 +276,6 @@ const char* is_suscribed = "isSubscribed";
 const char* message_data = "messageData";
 
 const char* delivery_mode = "deliveryMode";
-<<<<<<< HEAD
-=======
 const char* audio_streaming_indicator = "audioStreamingIndicator";
 const char* const keyboard_properties_supported = "keyboardPropertiesSupported";
 const char* const language_supported = "languageSupported";
@@ -289,10 +287,9 @@ const char* const auto_complete_text_supported = "autoCompleteTextSupported";
 const char* const entity_type = "entityType";
 const char* const entity_id = "entityID";
 const char* const status = "status";
-const char* const ccs_status = "ccsStatus";
+const char* const external_consent_status = "ExternalConsentStatus";
 const char* const consented_functions = "consentedFunctions";
 const char* const source = "source";
->>>>>>> 153dffe... Adds draft business logic for 'CCS ON' case and unit test
 }  // namespace strings
 
 namespace json {
