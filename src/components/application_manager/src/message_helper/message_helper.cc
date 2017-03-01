@@ -2327,6 +2327,58 @@ mobile_apis::Result::eType MessageHelper::VerifyImageFiles(
   return mobile_apis::Result::SUCCESS;
 }
 
+mobile_apis::Result::eType MessageHelper::VerifyImageApplyPath(
+    smart_objects::SmartObject& image,
+    ApplicationConstSharedPtr app,
+    ApplicationManager& app_mngr) {
+  // Checking image type first: if STATIC - skip existence check, since it is
+  // HMI related file and it should know it location
+  const uint32_t image_type = image[strings::image_type].asUInt();
+  mobile_apis::ImageType::eType type =
+      static_cast<mobile_apis::ImageType::eType>(image_type);
+  if (mobile_apis::ImageType::STATIC == type) {
+    return mobile_apis::Result::SUCCESS;
+  }
+
+  const std::string& file_name = image[strings::value].asString();
+
+  std::string str = file_name;
+  str.erase(remove(str.begin(), str.end(), ' '), str.end());
+  if (0 == str.size()) {
+    return mobile_apis::Result::INVALID_DATA;
+  }
+
+  std::string full_file_path;
+  if (file_name.size() > 0 && file_name[0] == '/') {
+    full_file_path = file_name;
+  } else {
+    const std::string& app_storage_folder =
+        app_mngr.get_settings().app_storage_folder();
+    if (!app_storage_folder.empty()) {
+      // TODO(nvaganov@luxoft.com): APPLINK-11293
+      if (app_storage_folder[0] == '/') {  // absolute path
+        full_file_path = app_storage_folder + "/";
+      } else {  // relative path
+        full_file_path = file_system::CurrentWorkingDirectory() + "/" +
+                         app_storage_folder + "/";
+      }
+    } else {  // empty app storage folder
+      full_file_path = file_system::CurrentWorkingDirectory() + "/";
+    }
+
+    full_file_path += app->folder_name();
+    full_file_path += "/";
+    full_file_path += file_name;
+  }
+
+  image[strings::value] = full_file_path;
+  if (!file_system::FileExists(full_file_path)) {
+    return mobile_apis::Result::INVALID_DATA;
+  }
+
+  return mobile_apis::Result::SUCCESS;
+}
+
 mobile_apis::Result::eType MessageHelper::VerifyImage(
     smart_objects::SmartObject& image,
     ApplicationConstSharedPtr app,
