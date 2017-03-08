@@ -2122,14 +2122,12 @@ TEST_F(PolicyHandlerTest,
   EXPECT_CALL(*mock_policy_manager_,
               SetExternalConsentStatus(external_consent_status))
       .WillOnce(DoAll(NotifyAsync(&waiter_second), Return(true)));
+  policy_handler_.OnAppPermissionConsent(
+      kConnectionKey_, permissions, external_consent_status);
+#else
+  policy_handler_.OnAppPermissionConsent(kConnectionKey_, permissions);
+
 #endif
-  policy_handler_.OnAppPermissionConsent(kConnectionKey_,
-                                         permissions
-#ifdef EXTERNAL_PROPRIETARY_MODE
-                                         ,
-                                         external_consent_status
-#endif
-                                         );
   EXPECT_TRUE(waiter_first.Wait(auto_lock_first));
 #ifdef EXTERNAL_PROPRIETARY_MODE
   EXPECT_TRUE(waiter_second.Wait(auto_lock_second));
@@ -2166,14 +2164,12 @@ TEST_F(PolicyHandlerTest,
   EXPECT_CALL(*mock_policy_manager_,
               SetExternalConsentStatus(external_consent_status))
       .WillOnce(Return(true));
+  policy_handler_.OnAppPermissionConsent(
+      invalid_connection_key, permissions, external_consent_status);
+#else
+  policy_handler_.OnAppPermissionConsent(invalid_connection_key, permissions);
 #endif
-  policy_handler_.OnAppPermissionConsent(invalid_connection_key,
-                                         permissions
-#ifdef EXTERNAL_PROPRIETARY_MODE
-                                         ,
-                                         external_consent_status
-#endif
-                                         );
+
   EXPECT_FALSE(waiter.Wait(auto_lock));
 }
 
@@ -2230,14 +2226,12 @@ TEST_F(PolicyHandlerTest,
   EXPECT_CALL(*mock_policy_manager_,
               SetExternalConsentStatus(external_consent_status))
       .WillOnce(DoAll(NotifyAsync(&waiter), Return(true)));
+  policy_handler_.OnAppPermissionConsent(
+      invalid_connection_key, permissions, external_consent_status);
+#else
+  policy_handler_.OnAppPermissionConsent(invalid_connection_key, permissions);
 #endif
-  policy_handler_.OnAppPermissionConsent(invalid_connection_key,
-                                         permissions
-#ifdef EXTERNAL_PROPRIETARY_MODE
-                                         ,
-                                         external_consent_status
-#endif
-                                         );
+
   Mock::VerifyAndClearExpectations(mock_app_.get());
 #ifdef EXTERNAL_PROPRIETARY_MODE
   EXPECT_TRUE(waiter.Wait(auto_lock));

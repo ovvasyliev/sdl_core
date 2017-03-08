@@ -484,7 +484,6 @@ mobile_apis::Result::eType CommandRequestImpl::GetMobileResultCode(
   return mobile_result;
 }
 
-
 bool CommandRequestImpl::CheckAllowedParameters() {
   LOG4CXX_AUTO_TRACE(logger_);
 
