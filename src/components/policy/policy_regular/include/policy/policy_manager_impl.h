@@ -188,11 +188,15 @@ class PolicyManagerImpl : public PolicyManager {
 
   virtual void OnAppsSearchStarted();
 
-  virtual void OnAppsSearchCompleted();
+  virtual void OnAppsSearchCompleted(const bool trigger_ptu);
 
 #ifdef BUILD_TESTS
   inline CacheManagerInterfaceSPtr GetCache() {
     return cache_;
+  }
+
+  inline void SetWrongPtuUpdateReceived(const bool wrong_ptu_update) {
+    wrong_ptu_update_received_ = wrong_ptu_update;
   }
 #endif  // BUILD_TESTS
   virtual const std::vector<std::string> GetAppRequestTypes(
@@ -352,6 +356,16 @@ class PolicyManagerImpl : public PolicyManager {
 
   const PolicySettings* settings_;
   friend struct CheckAppPolicy;
+  friend struct ProccessAppGroups;
+
+  /**
+   * @brief Pair of app index and url index from Endpoints vector
+   * that contains all application URLs
+   */
+  RetrySequenceURL retry_sequence_url_;
+
+  bool wrong_ptu_update_received_;
+  bool trigger_ptu_;
 };
 
 }  // namespace policy
