@@ -332,6 +332,8 @@ set (HMI_COMMANDS_SOURCES
   ${COMMANDS_SOURCE_DIR}/hmi/decrypt_certificate_request.cc
   ${COMMANDS_SOURCE_DIR}/hmi/decrypt_certificate_response.cc
   ${COMMANDS_SOURCE_DIR}/hmi/ui_set_icon_request.cc
+  ${COMMANDS_SOURCE_DIR}/hmi/ui_set_audio_streaming_indicator_request.cc
+  ${COMMANDS_SOURCE_DIR}/hmi/ui_set_audio_streaming_indicator_response.cc
 )
 
 set (HMI_COMMANDS_SOURCES_JSON
@@ -440,4 +442,5 @@ target_link_libraries("ApplicationManager" ${LIBRARIES})
 
 if(BUILD_TESTS)
   add_subdirectory(test)
+  add_subdirectory(test/application_manager)
 endif()
