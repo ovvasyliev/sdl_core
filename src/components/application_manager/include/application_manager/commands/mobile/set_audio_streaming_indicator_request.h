@@ -1,6 +1,6 @@
 /*
 
- Copyright (c) 2013, Ford Motor Company
+ Copyright (c) 2017, Ford Motor Company
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -31,83 +31,54 @@
  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef SRC_COMPONENTS_APPLICATION_MANAGER_INCLUDE_APPLICATION_MANAGER_COMMANDS_MOBILE_ADD_SUB_MENU_REQUEST_H_
-#define SRC_COMPONENTS_APPLICATION_MANAGER_INCLUDE_APPLICATION_MANAGER_COMMANDS_MOBILE_ADD_SUB_MENU_REQUEST_H_
+#ifndef SRC_COMPONENTS_APPLICATION_MANAGER_INCLUDE_APPLICATION_MANAGER_COMMANDS_MOBILE_SET_AUDIO_STREAMING_INDICATOR_REQUEST_H_
+#define SRC_COMPONENTS_APPLICATION_MANAGER_INCLUDE_APPLICATION_MANAGER_COMMANDS_MOBILE_SET_AUDIO_STREAMING_INDICATOR_REQUEST_H_
 
 #include "application_manager/commands/command_request_impl.h"
-#include "utils/macro.h"
-
 namespace application_manager {
-
 namespace commands {
 
 /**
- * @brief AddSubMenuRequest command class
+ * @brief SetAudioStreamingIndicatorRequest command class
  **/
-class AddSubMenuRequest : public CommandRequestImpl {
+class SetAudioStreamingIndicatorRequest : public CommandRequestImpl {
  public:
   /**
-   * @brief AddSubMenuRequest class constructor
-   *
+   * @brief SetAudioStreamingIndicatorRequest class constructor
    * @param message Incoming SmartObject message
    **/
-  AddSubMenuRequest(const MessageSharedPtr& message,
-                    ApplicationManager& application_manager);
-
-  /**
-   * @brief AddSubMenuRequest class destructor
-   **/
-  virtual ~AddSubMenuRequest();
+  SetAudioStreamingIndicatorRequest(const MessageSharedPtr& message,
+                                    ApplicationManager& application_manager);
 
   /**
    * @brief Execute command
    **/
-  virtual void Run();
+  void Run() OVERRIDE;
 
   /**
    * @brief Interface method that is called whenever new event received
-   *
    * @param event The received event
    */
-  void on_event(const event_engine::Event& event);
+  void on_event(const event_engine::Event& event) OVERRIDE;
+
+  /**
+   *  @brief Function is called by RequestController when request execution time
+   * has exceed it's limit
+   */
+  void onTimeOut() OVERRIDE;
 
  private:
-  /*
-   * @brief Check if submenu name is valid
-   *
-   * @return TRUE on success, otherwise FALSE
+  /**
+   *  @brief Process result from HMI.
+   * @param message contains message from HMI.
    */
-  bool CheckSubMenuName();
+  void ProcessResultFromHMI(const smart_objects::SmartObject& message);
 
-  /*
-   * @brief Check if submenu icon is valid
-   *
-   * @return TRUE on success, otherwise FALSE
-   */
-  bool CheckSubMenuIcon();
-
-  /*
-   * @brief Check if submenu icon is existed in storage folder
-   *
-   * @return TRUE on success, otherwise FALSE
-   */
-  bool CheckMenuIconExistedInStorage();
-
-  /*
-   * @brief Return image full path for dynamic image
-   *
-   * @param file_name image file name
-   *
-   * @param app current application
-   */
-  static std::string ImageFullPath(const std::string& file_name,
-                                   ApplicationConstSharedPtr app,
-                                   ApplicationManager& app_mngr);
-
-  DISALLOW_COPY_AND_ASSIGN(AddSubMenuRequest);
+  mobile_apis::AudioStreamingIndicator::eType audio_streaming_indicator_;
+  DISALLOW_COPY_AND_ASSIGN(SetAudioStreamingIndicatorRequest);
 };
 
 }  // namespace commands
 }  // namespace application_manager
 
-#endif  // SRC_COMPONENTS_APPLICATION_MANAGER_INCLUDE_APPLICATION_MANAGER_COMMANDS_MOBILE_ADD_SUB_MENU_REQUEST_H_
+#endif  // SRC_COMPONENTS_APPLICATION_MANAGER_INCLUDE_APPLICATION_MANAGER_COMMANDS_MOBILE_SET_AUDIO_STREAMING_INDICATOR_REQUEST_H_

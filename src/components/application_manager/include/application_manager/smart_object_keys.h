@@ -104,6 +104,7 @@ extern const char* cmd_id;
 extern const char* menu_params;
 extern const char* menu_title;
 extern const char* menu_icon;
+extern const char* sub_menu_icon;
 extern const char* keyboard_properties;
 extern const char* vr_commands;
 extern const char* position;
@@ -310,6 +311,7 @@ extern const char* is_suscribed;
 extern const char* message_data;
 
 extern const char* delivery_mode;
+extern const char* audio_streaming_indicator;
 }  // namespace strings
 
 namespace json {
