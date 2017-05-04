@@ -34,7 +34,7 @@
 
 <interfaces name="SmartDeviceLink HMI API">
 
-<interface name="Common" version="1.4" date="2016-05-11">
+<interface name="Common" version="1.7" date="2017-01-23">
 
 <enum name="Result">
     <element name="SUCCESS" value="0"/>
@@ -1206,7 +1206,7 @@
   <element name="QUEUE" />
 </enum>
 
-<enum name="SteeringWheelLocation">
+<enum name="SteeringWheelLocation"> 
   <description>Describes the location of the Steering Wheel.</description>
   <element name="LEFT" />
   <element name="RIGHT" />
@@ -2110,7 +2110,7 @@
 
 </interface>
 
-<interface name="Buttons" version="1.1" date="2016-08-18">
+<interface name="Buttons" version="1.2.0" date="2017-04-27">
     <function name="GetCapabilities" messagetype="request">
       <description>Method is invoked at system start-up. SDL requests the information about all supported hardware buttons and their capabilities</description>
     </function>
@@ -2177,7 +2177,7 @@
     </function>
 </interface>
 
-<interface name="BasicCommunication" version="1.1" date="2016-12-01">
+<interface name="BasicCommunication" version="1.2.0" date="2017-04-27">
     <function name="OnReady" messagetype="notification">
       <description>HMI must notify SDL about its readiness to start communication. In fact, this has to be the first message between SDL and HMI.</description>
     </function>
@@ -2508,7 +2508,7 @@
    </function>
 </interface>
 
-<interface name="VR" version="1.0" date="2013-04-17">
+<interface name="VR" version="1.1.0" date="2017-04-27">
   <function name="IsReady" messagetype="request">
     <description>Method is invoked at system startup. Response provides information about presence of VR module and its readiness to cooperate with SDL.</description>
   </function>
@@ -2657,7 +2657,7 @@
   </function>
 </interface>
 
-<interface name="TTS" version="1.0" date="2013-04-18">
+<interface name="TTS" version="1.1.0" date="2017-04-27">
   <description>RPCs for communication between TTS and SDL.</description>
   <function name="GetCapabilities" messagetype="request">
     <description>Method is invoked at system start-up. SDL requests the information about all supported hardware and their capabilities</description>
@@ -2783,7 +2783,7 @@
   </function>
 </interface>
 
-<interface name="UI" version="1.2" date="2017-01-25">
+<interface name="UI" version="1.1.0" date="2017-04-27">
   <function name="OnSeekMediaClockTimer" functionID="OnSeekMediaClockTimerID" messagetype="notification">
    <description>Callback for the seek media clock timer notification. Notification is triggered when the user selects a position and releases the mediaclock timer or when the user selects a position and holds for a full 2 second period. System will automatically the media clock timer position based on the seek notification location.</description>
    <param name="seekTime" type="Common.TimeFormat" mandatory="true">
@@ -3283,9 +3283,20 @@
       <description>ID of application related to this RPC.</description>
     </param>
   </function>
+  <function name="SetAudioStreamingIndicator" messagetype="request">
+    <description>Sets the icon properly to the current audio playback of the app.</description>
+    <param name="audioStreamingIndicator" type="Common.AudioStreamingIndicator" mandatory="true">
+      <description>
+        See AudioStreamingIndicator.
+      </description>
+    </param>
+  </function>
+  <function name="SetAudioStreamingIndicator" messagetype="response">
+  </function>
+
 </interface>
 
-<interface name="Navigation" version="1.2" date="2016-06-09">
+<interface name="Navigation" version="1.4.0" date="2017-04-27"> 
 
   <function name="IsReady" messagetype="request">
     <description>Method is invoked at system startup. Response must provide the information about presence of UI Navigation module and its readiness to cooperate with SDL.</description>
@@ -3452,7 +3463,7 @@
   </function>
   <function name="GetWayPoints" functionID="GetWayPointsID" messagetype="request">
     <description>Request for getting waypoint/destination data.</description>
-    <param name="wayPointType" type="Common.WayPointType" defvalue="ALL" mandatory="false">
+    <param name="wayPointType" type="Common.WayPointType" mandatory="true">
       <description>To request for either the destination only or for all waypoints including destination</description>
     </param>
     <param name="appID" type="Integer" mandatory="true">
@@ -3490,7 +3501,7 @@
 
 </interface>
 
-<interface name="VehicleInfo" version="1.0" date="2013-04-21">
+<interface name="VehicleInfo" version="1.1.0" date="2017-04-27">
   <function name="IsReady" messagetype="request">
     <description>Method is invoked at system startup. Response should provide information about presence of any of vehicle information modules (ECU, GPS, etc) and their readiness to cooperate with SDL.</description>
   </function>
@@ -4122,7 +4133,7 @@
 </interface>
 
  <!-- Policies -->
-<interface name="SDL" version="1.0" date="2017-02-20">
+<interface name="SDL" version="1.1.0" date="2017-04-27">
 <function name="ActivateApp" messagetype="request">
     <param name="appID" type="Integer" mandatory="true">
     </param>
