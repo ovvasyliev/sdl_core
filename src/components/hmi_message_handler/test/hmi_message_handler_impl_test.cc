@@ -43,7 +43,7 @@ namespace test {
 namespace components {
 namespace hmi_message_handler_test {
 
-using ::testing::ReturnRef;
+using ::testing::Return;
 using ::testing::_;
 
 class HMIMessageHandlerImplTest : public ::testing::Test {
@@ -63,7 +63,7 @@ class HMIMessageHandlerImplTest : public ::testing::Test {
 
   virtual void SetUp() OVERRIDE {
     ON_CALL(mock_hmi_message_handler_settings, thread_min_stack_size())
-        .WillByDefault(ReturnRef(stack_size));
+        .WillByDefault(Return(stack_size));
     hmi_handler_ = new hmi_message_handler::HMIMessageHandlerImpl(
         mock_hmi_message_handler_settings);
     ASSERT_TRUE(NULL != hmi_handler_);
