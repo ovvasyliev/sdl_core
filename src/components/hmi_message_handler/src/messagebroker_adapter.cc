@@ -136,7 +136,6 @@ void MessageBrokerAdapter::SubscribeTo() {
   MessageBrokerController::subscribeTo("SDL.OnDeviceStateChanged");
   MessageBrokerController::subscribeTo("SDL.OnPolicyUpdate");
   MessageBrokerController::subscribeTo("BasicCommunication.OnEventChanged");
-  MessageBrokerController::subscribeTo("RC.OnDeviceLocationChanged");
   MessageBrokerController::subscribeTo("RC.OnDeviceRankChanged");
   MessageBrokerController::subscribeTo("RC.OnInteriorVehicleData");
 
