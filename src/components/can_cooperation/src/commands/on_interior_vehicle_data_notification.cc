@@ -112,14 +112,6 @@ std::string OnInteriorVehicleDataNotification::ModuleType(
       .asString();
 }
 
-SeatLocation OnInteriorVehicleDataNotification::InteriorZone(
-    const Json::Value& message) {
-  Json::Value zone =
-      message.get(message_params::kModuleData, Json::Value(Json::objectValue))
-          .get(message_params::kModuleZone, Json::Value(Json::objectValue));
-  return CreateInteriorZone(zone);
-}
-
 std::vector<std::string> OnInteriorVehicleDataNotification::ControlData(
     const Json::Value& message) {
   Json::Value data =

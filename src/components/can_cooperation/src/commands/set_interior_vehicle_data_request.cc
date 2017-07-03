@@ -174,21 +174,6 @@ std::string SetInteriorVehicleDataRequest::ModuleType(
       .asString();
 }
 
-Json::Value SetInteriorVehicleDataRequest::GetInteriorZone(
-    const Json::Value& message) {
-  return message.get(message_params::kModuleData,
-                     Json::Value(Json::objectValue))
-      .get(message_params::kModuleZone, Json::Value(Json::objectValue));
-}
-
-SeatLocation SetInteriorVehicleDataRequest::InteriorZone(
-    const Json::Value& message) {
-  Json::Value zone =
-      message.get(message_params::kModuleData, Json::Value(Json::objectValue))
-          .get(message_params::kModuleZone, Json::Value(Json::objectValue));
-  return CreateInteriorZone(zone);
-}
-
 std::vector<std::string> SetInteriorVehicleDataRequest::ControlData(
     const Json::Value& message) {
   Json::Value data =

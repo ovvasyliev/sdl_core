@@ -70,7 +70,6 @@ class OnInteriorVehicleDataNotification : public BaseCommandNotification {
 
  protected:
   virtual std::string ModuleType(const Json::Value& message);
-  virtual SeatLocation InteriorZone(const Json::Value& message);
   virtual std::vector<std::string> ControlData(const Json::Value& message);
 };
 

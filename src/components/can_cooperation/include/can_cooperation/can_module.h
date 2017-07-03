@@ -128,8 +128,6 @@ class CANModule : public CANModuleInterface {
 
   void SendHmiStatusNotification(application_manager::ApplicationSharedPtr app);
 
-  void UnsubscribeAppForAllZones(uint32_t hmi_app_id, CANAppExtensionPtr app);
-
   CANConnectionSPtr can_connection();
 
   void set_can_connection(const CANConnectionSPtr can_connection);
@@ -148,14 +146,8 @@ class CANModule : public CANModuleInterface {
   void SubscribeOnFunctions();
   void NotifyMobiles(application_manager::MessagePtr msg);
 
-  void UnsubscribeAppsFromAllInteriorZones(uint32_t device_id);
-
   functional_modules::ProcessResult HandleMessage(
       application_manager::MessagePtr msg);
-  inline bool DoNeedUnsubscribe(uint32_t device_id,
-                                const application_manager::SeatLocation& zone);
-  inline application_manager::SeatLocation GetInteriorZone(
-      const Json::Value& device_location) const;
   CANConnectionSPtr can_connection_;
   functional_modules::PluginInfo plugin_info_;
   threads::MessageLoopThread<std::queue<MessageFromCAN> > from_can_;

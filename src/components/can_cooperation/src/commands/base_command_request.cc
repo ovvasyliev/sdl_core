@@ -43,8 +43,6 @@ namespace can_cooperation {
 namespace commands {
 
 using can_event_engine::EventDispatcher;
-using application_manager::SeatLocation;
-using application_manager::SeatLocationPtr;
 
 using namespace json_keys;
 
@@ -56,9 +54,6 @@ BaseCommandRequest::BaseCommandRequest(
     : Command(can_module), message_(message), auto_allowed_(false) {
   service_ = can_module_.service();
   app_ = service_->GetApplication(message_->connection_key());
-  if (app_) {
-    device_location_ = service_->GetDeviceZone(app_->device());
-  }
 }
 
 BaseCommandRequest::~BaseCommandRequest() {
@@ -342,13 +337,9 @@ bool BaseCommandRequest::CheckPolicyPermissions() {
 
 application_manager::TypeAccess BaseCommandRequest::CheckAccess(
     const Json::Value& message) {
-  const SeatLocation& zone = PrepareZone(InteriorZone(message));
   const std::string& module = ModuleType(message);
-  return service_->CheckAccess(app_->app_id(),
-                               zone,
-                               module,
-                               message_->function_name(),
-                               ControlData(message));
+  return service_->CheckAccess(
+      app_->app_id(), module, message_->function_name(), ControlData(message));
 }
 
 bool BaseCommandRequest::CheckDriverConsent() {
@@ -414,49 +405,11 @@ void BaseCommandRequest::SendGetUserConsent(const Json::Value& value) {
   Json::Value params;
   params[json_keys::kAppId] = app_->hmi_app_id();
   params[message_params::kModuleType] = ModuleType(value);
-  params[message_params::kZone] = PrepareJsonZone(GetInteriorZone(value));
   SendRequest(functional_modules::hmi_api::get_user_consent, params, true);
-}
-
-SeatLocation BaseCommandRequest::PrepareZone(
-    const SeatLocation& interior_zone) {
-  return device_location_ ? *device_location_ : interior_zone;
-}
-
-Json::Value BaseCommandRequest::PrepareJsonZone(const Json::Value& value) {
-  Json::Value json = value;
-  if (device_location_) {
-    json[message_params::kCol] = device_location_->col;
-    json[message_params::kRow] = device_location_->row;
-    json[message_params::kLevel] = device_location_->level;
-    json[message_params::kColspan] = device_location_->colspan;
-    json[message_params::kRowspan] = device_location_->rowspan;
-    json[message_params::kLevelspan] = device_location_->levelspan;
-  }
-  return json;
 }
 
 std::string BaseCommandRequest::ModuleType(const Json::Value& message) {
   return "";
-}
-
-Json::Value BaseCommandRequest::GetInteriorZone(const Json::Value& message) {
-  return Json::Value(Json::objectValue);
-}
-
-SeatLocation BaseCommandRequest::InteriorZone(const Json::Value& message) {
-  return CreateInteriorZone(Json::Value(Json::objectValue));
-}
-
-SeatLocation BaseCommandRequest::CreateInteriorZone(const Json::Value& zone) {
-  int col = zone.get(message_params::kCol, Json::Value(-1)).asInt();
-  int row = zone.get(message_params::kRow, Json::Value(-1)).asInt();
-  int level = zone.get(message_params::kLevel, Json::Value(-1)).asInt();
-  int colspan = zone.get(message_params::kColspan, Json::Value(-1)).asInt();
-  int rowspan = zone.get(message_params::kRowspan, Json::Value(-1)).asInt();
-  int levelspan = zone.get(message_params::kLevelspan, Json::Value(-1)).asInt();
-  SeatLocation seat = {col, row, level, colspan, rowspan, levelspan};
-  return seat;
 }
 
 std::vector<std::string> BaseCommandRequest::ControlData(
@@ -529,8 +482,7 @@ void BaseCommandRequest::ProcessAccessResponse(
     LOG4CXX_DEBUG(logger_,
                   "Setting allowed access for " << app_->app_id() << " for "
                                                 << module);
-    service_->SetAccess(
-        app_->app_id(), PrepareZone(InteriorZone(request)), module, allowed);
+    service_->SetAccess(app_->app_id(), module, allowed);
     CheckHMILevel(application_manager::kManual, allowed);
     Execute();  // run child's logic
   } else {

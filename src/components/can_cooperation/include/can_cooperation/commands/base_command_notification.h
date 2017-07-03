@@ -44,8 +44,6 @@ namespace Json {
 class Value;
 }
 
-using application_manager::SeatLocation;
-
 namespace can_cooperation {
 
 namespace commands {
@@ -97,10 +95,7 @@ class BaseCommandNotification : public Command {
   virtual bool Validate() = 0;
 
   virtual std::string ModuleType(const Json::Value& message);
-  virtual SeatLocation InteriorZone(const Json::Value& message);
   virtual std::vector<std::string> ControlData(const Json::Value& message);
-
-  SeatLocation CreateInteriorZone(const Json::Value& zone);
 
   void NotifyOneApplication(application_manager::MessagePtr message);
 

@@ -81,8 +81,6 @@ class GetInteriorVehicleDataCapabiliesRequest : public BaseCommandRequest {
   virtual application_manager::TypeAccess CheckAccess(
       const Json::Value& message);
   virtual std::string ModuleType(const Json::Value& message);
-  virtual SeatLocation InteriorZone(const Json::Value& message);
-  virtual Json::Value GetInteriorZone(const Json::Value& message);
 
  private:
   void UpdateModules(Json::Value* params);

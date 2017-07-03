@@ -196,7 +196,6 @@ TEST_F(CanModuleTest, ProcessMessagePass) {
 
 TEST_F(CanModuleTest, RemoveAppExtensionPassWay) {
   EXPECT_CALL(*app0_, app_id()).WillOnce(Return(1));
-  EXPECT_CALL(*mock_service_, ResetAccess(1));
   EXPECT_CALL(*mock_service_, GetApplication(1)).WillOnce(Return(app0_));
   EXPECT_CALL(*app0_, RemoveExtension(module_.GetModuleID()));
 
@@ -206,7 +205,6 @@ TEST_F(CanModuleTest, RemoveAppExtensionPassWay) {
 TEST_F(CanModuleTest, RemoveAppExtensionIfAppNoExist) {
   ApplicationSharedPtr invalid_app;
 
-  EXPECT_CALL(*mock_service_, ResetAccess(_)).Times(0);
   EXPECT_CALL(*mock_service_, GetApplication(_)).WillOnce(Return(invalid_app));
 
   module_.RemoveAppExtension(1);

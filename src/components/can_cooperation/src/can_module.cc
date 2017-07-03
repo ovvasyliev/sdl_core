@@ -48,7 +48,6 @@
 
 namespace can_cooperation {
 
-using application_manager::SeatLocation;
 using functional_modules::ProcessResult;
 using functional_modules::GenericModule;
 using functional_modules::PluginInfo;
@@ -91,11 +90,11 @@ void CANModule::SubscribeOnFunctions() {
   plugin_info_.hmi_function_list.push_back(hmi_api::button_press);
 
   plugin_info_.hmi_function_list.push_back(hmi_api::get_user_consent);
-  plugin_info_.hmi_function_list.push_back(hmi_api::on_reverse_apps_allowing);
-  plugin_info_.hmi_function_list.push_back(hmi_api::on_device_rank_changed);
-  plugin_info_.hmi_function_list.push_back(hmi_api::on_device_location_changed);
   plugin_info_.hmi_function_list.push_back(hmi_api::on_app_deactivated);
   plugin_info_.hmi_function_list.push_back(hmi_api::sdl_activate_app);
+  // Disabled
+  // plugin_info_.hmi_function_list.push_back(hmi_api::on_device_rank_changed);
+  // plugin_info_.hmi_function_list.push_back(hmi_api::on_reverse_apps_allowing);
 }
 
 CANModule::~CANModule() {
@@ -280,36 +279,6 @@ functional_modules::ProcessResult CANModule::HandleMessage(
       } else if (functional_modules::hmi_api::on_app_deactivated ==
                  function_name) {
         return ModuleHelper::ProcessOnAppDeactivation(value, *this);
-      } else if (function_name ==
-                 functional_modules::hmi_api::on_device_location_changed) {
-        if (value.isMember(json_keys::kParams)) {
-          Json::Value& params = value[json_keys::kParams];
-          bool valid =
-              MessageHelper::ValidateDeviceInfo(params.get(
-                  message_params::kDevice, Json::Value(Json::nullValue))) &&
-              MessageHelper::ValidateInteriorZone(
-                  params.get(message_params::kDeviceLocation,
-                             Json::Value(Json::nullValue)));
-          if (valid) {
-            const std::string device_id =
-                params[message_params::kDevice][json_keys::kId].asString();
-            const uint32_t device_handle =
-                service()->GetDeviceHandlerById(device_id);
-            SeatLocation zone =
-                GetInteriorZone(params[message_params::kDeviceLocation]);
-
-            if (DoNeedUnsubscribe(device_handle, zone)) {
-              UnsubscribeAppsFromAllInteriorZones(device_handle);
-            }
-
-            service()->SetDeviceZone(device_handle, zone);
-
-          } else {
-            LOG4CXX_ERROR(logger_,
-                          "Invalid RC.OnDeviceLocationChanged notification");
-          }
-        }
-        return ProcessResult::PROCESSED;
       }
 
       int32_t func_id = msg->function_id();
@@ -333,25 +302,6 @@ functional_modules::ProcessResult CANModule::HandleMessage(
   return ProcessResult::PROCESSED;
 }
 
-bool CANModule::DoNeedUnsubscribe(uint32_t device_id,
-                                  const SeatLocation& zone) {
-  application_manager::SeatLocationPtr previous_zone =
-      service()->GetDeviceZone(device_id);
-  return device_id != service()->PrimaryDevice() &&
-         (!previous_zone || zone != *previous_zone);
-}
-
-SeatLocation CANModule::GetInteriorZone(
-    const Json::Value& device_location) const {
-  int col = device_location[message_params::kCol].asInt();
-  int row = device_location[message_params::kRow].asInt();
-  int level = device_location[message_params::kLevel].asInt();
-  int colspan = device_location[message_params::kColspan].asInt();
-  int rowspan = device_location[message_params::kRowspan].asInt();
-  int levelspan = device_location[message_params::kLevelspan].asInt();
-  SeatLocation zone = {col, row, level, colspan, rowspan, levelspan};
-  return zone;
-}
 void CANModule::SendHmiStatusNotification(
     application_manager::ApplicationSharedPtr app) {
   LOG4CXX_AUTO_TRACE(logger_);
@@ -427,7 +377,6 @@ void CANModule::RemoveAppExtensions() {
   for (; it != applications.end(); ++it) {
     application_manager::ApplicationSharedPtr app = *it;
     if (app) {
-      service()->ResetAccess(app->app_id());
       app->RemoveExtension(GetModuleID());
     }
   }
@@ -438,7 +387,6 @@ void CANModule::RemoveAppExtension(uint32_t app_id) {
       service()->GetApplication(app_id);
 
   if (app) {
-    service()->ResetAccess(app->app_id());
     app->RemoveExtension(GetModuleID());
   }
 }
@@ -495,61 +443,6 @@ void CANModule::OnDeviceRemoved(
   bool is_driver = service()->PrimaryDevice() == device;
   if (is_driver) {
     service()->ResetPrimaryDevice();
-  }
-}
-
-void CANModule::UnsubscribeAppForAllZones(uint32_t hmi_app_id,
-                                          CANAppExtensionPtr app) {
-  LOG4CXX_AUTO_TRACE(logger_);
-  std::set<Json::Value>::iterator iter =
-      app->subscribed_interior_vehicle_data_.begin();
-  for (; iter != app->subscribed_interior_vehicle_data_.end();) {
-    // TODO(VS): Move headers initialization out of loop(only params must be
-    // changed in loop)
-    Json::Value msg;
-
-    msg[kId] = service()->GetNextCorrelationID();
-
-    msg[kJsonrpc] = "2.0";
-    msg[kMethod] = hmi_api::get_interior_vehicle_data;
-
-    msg[kParams][message_params::kModuleDescription] = *iter;
-
-    msg[kParams][json_keys::kAppId] = hmi_app_id;
-
-    msg[kParams][message_params::kSubscribe] = false;
-
-    application_manager::MessagePtr message_to_send(
-        new application_manager::Message(
-            protocol_handler::MessagePriority::kDefault));
-    message_to_send->set_protocol_version(
-        application_manager::ProtocolVersion::kHMI);
-    message_to_send->set_correlation_id(msg[kId].asInt());
-    message_to_send->set_json_message(MessageHelper::ValueToString(msg));
-    message_to_send->set_message_type(
-        application_manager::MessageType::kRequest);
-
-    service()->SendMessageToHMI(message_to_send);
-
-    app->subscribed_interior_vehicle_data_.erase(iter++);
-  }
-}
-
-void CANModule::UnsubscribeAppsFromAllInteriorZones(uint32_t device_id) {
-  std::vector<application_manager::ApplicationSharedPtr> applications =
-      this->service()->GetApplications(this->GetModuleID());
-  for (uint32_t i = 0; i < applications.size(); ++i) {
-    if (applications[i]->device() == device_id) {
-      application_manager::AppExtensionPtr app_extension =
-          applications[i]->QueryInterface(this->GetModuleID());
-      if (app_extension) {
-        CANAppExtensionPtr can_app_extension =
-            application_manager::AppExtensionPtr::static_pointer_cast<
-                CANAppExtension>(app_extension);
-        UnsubscribeAppForAllZones(applications[i]->hmi_app_id(),
-                                  can_app_extension);
-      }
-    }
   }
 }
 

@@ -43,9 +43,6 @@
 #include "json/json.h"
 #include "can_cooperation/can_module_interface.h"
 
-using application_manager::SeatLocation;
-using application_manager::SeatLocationPtr;
-
 namespace can_cooperation {
 
 namespace commands {
@@ -171,13 +168,9 @@ class BaseCommandRequest
                                     std::string>& event) = 0;
 
   virtual std::string ModuleType(const Json::Value& message);
-  virtual Json::Value GetInteriorZone(const Json::Value& message);
-  virtual SeatLocation InteriorZone(const Json::Value& message);
   virtual std::vector<std::string> ControlData(const Json::Value& message);
   virtual application_manager::TypeAccess CheckAccess(
       const Json::Value& message);
-
-  SeatLocation CreateInteriorZone(const Json::Value& zone);
 
   bool auto_allowed() const {
     return auto_allowed_;
@@ -211,11 +204,8 @@ class BaseCommandRequest
   void ProcessAccessResponse(
       const can_event_engine::Event<application_manager::MessagePtr,
                                     std::string>& event);
-  SeatLocation PrepareZone(const SeatLocation& interior_zone);
-  Json::Value PrepareJsonZone(const Json::Value& value);
   application_manager::ApplicationSharedPtr app_;
   application_manager::ServicePtr service_;
-  SeatLocationPtr device_location_;
   bool auto_allowed_;
   std::string disallowed_info_;
 };
