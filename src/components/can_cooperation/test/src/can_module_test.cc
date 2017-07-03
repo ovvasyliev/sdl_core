@@ -137,9 +137,7 @@ TEST_F(CanModuleTest, ProcessMessageEmptyapps_List) {
   std::string json =
       "{\"jsonrpc\": \"2.0\", \"method\": \"RC.OnInteriorVehicleData\",\
         \"params\": {\"moduleData\": {\"moduleType\": \"CLIMATE\",\
-        \"moduleZone\":  {\"col\": 0,\"row\": 0,\"level\": 0,\"colspan\": 2,\
-        \"rowspan\": 2, \"levelspan\": 1}, \"climateControlData\": {\
-        \"fanSpeed\": 100} }}}";
+        \"climateControlData\": {\"fanSpeed\": 100} }}}";
   message_->set_json_message(json);
 
   EXPECT_CALL(*mock_service_, GetApplications(module_.GetModuleID()))
@@ -154,9 +152,7 @@ TEST_F(CanModuleTest, ProcessMessagePass) {
   std::string json =
       "{ \"jsonrpc\": \"2.0\",\"method\": \"RC.OnInteriorVehicleData\",\
          \"params\":{\"moduleData\":{\
-         \"moduleType\": \"CLIMATE\",\"moduleZone\":{\"col\": 0,\"row\": 0,\
-         \"level\": 0,\"colspan\": 2,\"rowspan\": 2,\
-         \"levelspan\": 1},\"climateControlData\": {\"fanSpeed\": 100}}}}";
+         \"moduleType\": \"CLIMATE\",\"climateControlData\": {\"fanSpeed\": 100}}}}";
 
   message_->set_json_message(json);
 
@@ -172,10 +168,6 @@ TEST_F(CanModuleTest, ProcessMessagePass) {
   moduleDescription[message_params::kModuleType] =
       json_value[json_keys::kParams][message_params::kModuleData]
                 [message_params::kModuleType];
-
-  moduleDescription[message_params::kModuleZone] =
-      json_value[json_keys::kParams][message_params::kModuleData]
-                [message_params::kModuleZone];
 
   apps_.push_back(app0_);
   can_app_extention_->SubscribeToInteriorVehicleData(moduleDescription);

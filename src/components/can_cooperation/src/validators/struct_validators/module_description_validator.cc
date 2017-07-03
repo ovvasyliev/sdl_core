@@ -31,7 +31,6 @@
  */
 
 #include "can_cooperation/validators/struct_validators/module_description_validator.h"
-#include "can_cooperation/validators/struct_validators/interior_zone_validator.h"
 #include "can_cooperation/message_helper.h"
 #include "can_cooperation/can_module_constants.h"
 
@@ -61,14 +60,6 @@ ValidationResult ModuleDescriptionValidator::Validate(
 
   if (result != ValidationResult::SUCCESS) {
     return result;
-  }
-
-  if (IsMember(json, kModuleZone)) {
-    InteriorZoneValidator validator;
-    result = validator.Validate(json[kModuleZone], outgoing_json[kModuleZone]);
-  } else {
-    result = ValidationResult::INVALID_DATA;
-    LOG4CXX_ERROR(logger_, "Mandatory param " << kModuleZone << " missing!");
   }
 
   return result;

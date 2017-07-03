@@ -208,11 +208,6 @@ const char kRowspan[] = "rowspan";
 const char kLevelspan[] = "levelspan";
 // InteriorZone struct
 
-// ModuleDescription struct
-const char kModuleZone[] = "moduleZone";
-// const char kModuleType[] = "moduleType";
-// ModuleDescription struct
-
 // RdsData struct
 const char kPS[] = "PS";
 const char kRT[] = "RT";
@@ -250,8 +245,6 @@ const char kDualModeEnable[] = "dualModeEnable";
 // ClimateControlData struct
 
 // ModuleData struct
-// const char kModuleType[]   = "moduleType";
-// const char kModuleZone[] = "moduleZone";
 const char kRadioControlData[] = "radioControlData";
 const char kClimateControlData[] = "climateControlData";
 // ModuleData struct

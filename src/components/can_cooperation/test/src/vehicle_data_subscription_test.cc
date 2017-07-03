@@ -38,14 +38,11 @@ namespace can_cooperation {
 TEST(VehicleDataSubscription, CompareSuccess) {
   std::string json_str1 =
       "{\"jsonrpc\": \"2.0\", \"method\": \"RC.OnInteriorVehicleData\",\
-                        \"params\": {\"moduleData\": {\"moduleType\": \"CLIMATE\",\
-                        \"moduleZone\":  {\"col\": 0,\"row\": 0,\"level\": 0,\"colspan\": 2,\
-                        \"rowspan\": 2, \"levelspan\": 1} }}}";
+                        \"params\": {\"moduleData\": {\"moduleType\": \"CLIMATE\"}}}";
   std::string json_str2 =
       "{\"method\": \"RC.OnInteriorVehicleData\",\
                         \"params\": {\"moduleData\": {\
-                        \"moduleZone\":  {\"col\": 0,\"row\": 0,\"level\": 0,\"colspan\": 2,\
-                        \"rowspan\": 2, \"levelspan\": 1}, \"moduleType\": \"CLIMATE\" }},\
+                        \"moduleType\": \"CLIMATE\" }},\
                          \"jsonrpc\": \"2.0\"}";
 
   Json::Value json1;
@@ -71,9 +68,7 @@ TEST(VehicleDataSubscription, CompareSuccess) {
 TEST(VehicleDataSubscription, CompareNull) {
   std::string json_str1 =
       "{\"jsonrpc\": \"2.0\", \"method\": \"RC.OnInteriorVehicleData\",\
-                        \"params\": {\"moduleData\": {\"moduleType\": \"CLIMATE\",\
-                        \"moduleZone\":  {\"col\": 0,\"row\": 0,\"level\": 0,\"colspan\": 2,\
-                        \"rowspan\": 2, \"levelspan\": 1} }}}";
+                        \"params\": {\"moduleData\": {\"moduleType\": \"CLIMATE\"}}}";
   Json::Value json1;
   Json::Reader reader;
   ASSERT_TRUE(reader.parse(json_str1, json1, false));
@@ -87,9 +82,7 @@ TEST(VehicleDataSubscription, CompareNull) {
 TEST(VehicleDataSubscription, CompareDifferentTypes) {
   std::string json_str1 =
       "{\"jsonrpc\": \"2.0\", \"method\": \"RC.OnInteriorVehicleData\",\
-                        \"params\": {\"moduleData\": {\"moduleType\": \"CLIMATE\",\
-                        \"moduleZone\":  {\"col\": 0,\"row\": 0,\"level\": 0,\"colspan\": 2,\
-                        \"rowspan\": 2, \"levelspan\": 1} }}}";
+                        \"params\": {\"moduleData\": {\"moduleType\": \"CLIMATE\"}}}";
   std::string json_str2 = "\"method\": \"RC.OnInteriorVehicleData\"";
 
   Json::Value json1;
@@ -108,13 +101,8 @@ TEST(VehicleDataSubscription, CompareDifferentTypes) {
 TEST(VehicleDataSubscription, CompareDifferentNesting) {
   std::string json_str1 =
       "{\"jsonrpc\": \"2.0\", \"method\": \"RC.OnInteriorVehicleData\",\
-                        \"params\": {\"moduleData\": {\"moduleType\": \"CLIMATE\",\
-                        \"moduleZone\":  {\"col\": 0,\"row\": 0,\"level\": 0,\"colspan\": 2,\
-                        \"rowspan\": 2, \"levelspan\": 1} }}}";
-  std::string json_str2 =
-      "{\"moduleData\": {\"moduleType\": \"CLIMATE\",\
-                        \"moduleZone\":  {\"col\": 0,\"row\": 0,\"level\": 0,\"colspan\": 2,\
-                        \"rowspan\": 2, \"levelspan\": 1} }}";
+                        \"params\": {\"moduleData\": {\"moduleType\": \"CLIMATE\"}}}";
+  std::string json_str2 = "{\"moduleData\": {\"moduleType\": \"CLIMATE\"}}";
 
   Json::Value json1;
   Json::Reader reader;
@@ -129,32 +117,16 @@ TEST(VehicleDataSubscription, CompareModuleDesciption) {
   Json::Value json1;
   json1["moduleDescription"] = Json::Value(Json::ValueType::objectValue);
   json1["moduleDescription"]["moduleType"] = "RADIO";
-  json1["moduleDescription"]["moduleZone"] =
-      Json::Value(Json::ValueType::objectValue);
-  json1["moduleDescription"]["moduleZone"]["col"] = 0;
-  json1["moduleDescription"]["moduleZone"]["row"] = 0;
-  json1["moduleDescription"]["moduleZone"]["level"] = 0;
-  json1["moduleDescription"]["moduleZone"]["colspan"] = 2;
-  json1["moduleDescription"]["moduleZone"]["rowspan"] = 2;
-  json1["moduleDescription"]["moduleZone"]["levelspan"] = 1;
 
   Json::Value json2;
   json2["moduleData"] = Json::Value(Json::ValueType::objectValue);
   json2["moduleData"]["radioControlData"] =
       Json::Value(Json::ValueType::objectValue);
-  json2["moduleData"]["moduleZone"] = Json::Value(Json::ValueType::objectValue);
-  json2["moduleData"]["moduleZone"]["colspan"] = 2;
-  json2["moduleData"]["moduleZone"]["rowspan"] = 2;
-  json2["moduleData"]["moduleZone"]["levelspan"] = 1;
-  json2["moduleData"]["moduleZone"]["col"] = 0;
-  json2["moduleData"]["moduleZone"]["row"] = 0;
-  json2["moduleData"]["moduleZone"]["level"] = 0;
   json2["moduleData"]["moduleType"] = "RADIO";
 
   ASSERT_FALSE(json1["moduleDescription"] == json2["moduleData"]);
 
   Json::Value json3;
-  json3["moduleZone"] = json2["moduleData"]["moduleZone"];
   json3["moduleType"] = json2["moduleData"]["moduleType"];
 
   ASSERT_TRUE(json1["moduleDescription"] == json3);

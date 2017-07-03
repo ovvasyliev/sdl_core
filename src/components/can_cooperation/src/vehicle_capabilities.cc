@@ -40,7 +40,6 @@ namespace can_cooperation {
 CREATE_LOGGERPTR_GLOBAL(logger_, "VehicleCapabilities")
 
 using message_params::kInteriorVehicleDataCapabilities;
-using message_params::kModuleZone;
 
 VehicleCapabilities::VehicleCapabilities()
     : kDefaultPath_(
@@ -71,22 +70,6 @@ Json::Value VehicleCapabilities::capabilities() const {
     return capabilities_[kInteriorVehicleDataCapabilities];
   }
   return capabilities_;
-}
-
-Json::Value VehicleCapabilities::capabilities(const Json::Value& zone) const {
-  if (capabilities_.type() == Json::ValueType::objectValue) {
-    Json::Value result(Json::ValueType::arrayValue);
-    for (Json::Value::iterator it =
-             capabilities_[kInteriorVehicleDataCapabilities].begin();
-         capabilities_[kInteriorVehicleDataCapabilities].end() != it;
-         ++it) {
-      if ((*it)[kModuleZone] == zone) {
-        result.append(*it);
-      }
-    }
-    return result;
-  }
-  return Json::Value();
 }
 
 }  // namespace can_cooperation

@@ -70,7 +70,6 @@ set (SOURCES
     ${CAN_VALIDATORS_DIR}/get_interior_vehicle_data_response_validator.cc
     ${CAN_VALIDATORS_DIR}/set_interior_vehicle_data_request_validator.cc
     ${CAN_VALIDATORS_DIR}/on_interior_vehicle_data_notification_validator.cc
-    ${CAN_STRUCT_VALIDATORS_DIR}/interior_zone_validator.cc
     ${CAN_STRUCT_VALIDATORS_DIR}/module_description_validator.cc
     ${CAN_STRUCT_VALIDATORS_DIR}/module_data_validator.cc
     ${CAN_STRUCT_VALIDATORS_DIR}/rds_data_validator.cc

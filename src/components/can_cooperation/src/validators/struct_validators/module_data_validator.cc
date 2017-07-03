@@ -31,7 +31,6 @@
  */
 
 #include "can_cooperation/validators/struct_validators/module_data_validator.h"
-#include "can_cooperation/validators/struct_validators/interior_zone_validator.h"
 #include "can_cooperation/validators/struct_validators/radio_control_data_validator.h"
 #include "can_cooperation/validators/struct_validators/climate_control_data_validator.h"
 #include "can_cooperation/can_module_constants.h"
@@ -63,15 +62,6 @@ ValidationResult ModuleDataValidator::Validate(const Json::Value& json,
 
   if (result != ValidationResult::SUCCESS) {
     return result;
-  }
-
-  if (IsMember(json, kModuleZone)) {
-    InteriorZoneValidator interior_zone_validator;
-    result = interior_zone_validator.Validate(json[kModuleZone],
-                                              outgoing_json[kModuleZone]);
-  } else {
-    result = ValidationResult::INVALID_DATA;
-    LOG4CXX_ERROR(logger_, "Mandatory param " << kModuleZone << " missing!");
   }
 
   if (result != ValidationResult::SUCCESS) {

@@ -61,12 +61,6 @@ class VehicleCapabilities {
    */
   Json::Value capabilities() const;
 
-  /*
-   * @brief return all vehicle capabilities for specified zone
-   * @param zone Describes place in vehicle (row-col-level)
-   */
-  Json::Value capabilities(const Json::Value& zone) const;
-
  private:
   Json::Value capabilities_;
   const std::string kDefaultPath_;
