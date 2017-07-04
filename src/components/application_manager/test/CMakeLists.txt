@@ -45,11 +45,9 @@ include_directories(
   ${COMPONENTS_DIR}/resumption/include/
   ${COMPONENTS_DIR}/utils/include/
   ${POLICY_PATH}/include/
-  ${POLICY_PATH}/policy/test/include/
   ${POLICY_MOCK_INCLUDE_PATH}/
   ${COMPONENTS_DIR}/media_manager/include/
   ${COMPONENTS_DIR}/security_manager/include/
-  ${COMPONENTS_DIR}/policy/test/include/
   ${COMPONENTS_DIR}/application_manager/test/include/
 )
 

@@ -85,9 +85,6 @@ class CANAppExtension : public application_manager::AppExtension {
    */
   bool IsSubscibedToInteriorVehicleData(const Json::Value& moduleDescription);
 
-  friend void CANModule::UnsubscribeAppForAllZones(uint32_t hmi_app_id,
-                                                   CANAppExtensionPtr app);
-
  private:
   bool is_control_given_;
   bool is_on_driver_device_;

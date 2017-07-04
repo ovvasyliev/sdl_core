@@ -147,9 +147,6 @@ class CANModuleInterface
   virtual void SendHmiStatusNotification(
       application_manager::ApplicationSharedPtr app) = 0;
 
-  virtual void UnsubscribeAppForAllZones(uint32_t hmi_app_id,
-                                         CANAppExtensionPtr app) = 0;
-
   virtual can_event_engine::EventDispatcher<application_manager::MessagePtr,
                                             std::string>&
   event_dispatcher() = 0;

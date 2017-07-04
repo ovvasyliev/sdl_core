@@ -55,17 +55,20 @@ class MockService : public Service {
   MOCK_METHOD2(NotifyHMIAboutHMILevel,
                void(ApplicationSharedPtr app,
                     mobile_apis::HMILevel::eType level));
-  MOCK_METHOD5(CheckAccess,
+  MOCK_METHOD4(CheckAccess,
                TypeAccess(const ApplicationId& app_id,
                           const std::string& module,
                           const std::string& rpc,
                           const std::vector<std::string>& params));
   MOCK_METHOD2(CheckModule,
                bool(const ApplicationId& app_id, const std::string& module));
-  MOCK_METHOD4(SetAccess,
+  MOCK_METHOD3(SetAccess,
                void(const ApplicationId& app_id,
                     const std::string& module,
                     bool allowed));
+  MOCK_METHOD1(ResetAccess, void(const ApplicationId& app_id));
+  MOCK_METHOD1(ResetAccess,
+               void(const std::string& module));
   MOCK_METHOD1(GetDeviceHandlerById, uint32_t(const std::string& device_id));
   MOCK_METHOD1(SetPrimaryDevice, void(const uint32_t dev_id));
   MOCK_METHOD0(ResetPrimaryDevice, void());

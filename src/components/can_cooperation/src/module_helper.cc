@@ -197,9 +197,6 @@ void ModuleHelper::ProccessDeviceRankChanged(const uint32_t device_handle,
           if (!can_app_extension->is_on_driver_device()) {
             can_app_extension->set_is_on_driver_device(true);
             is_rank_actually_changed = true;
-
-            can_module.UnsubscribeAppForAllZones(applications[i]->hmi_app_id(),
-                                                 can_app_extension);
           }
         }
       }
@@ -215,8 +212,6 @@ void ModuleHelper::ProccessDeviceRankChanged(const uint32_t device_handle,
                 application_manager::AppExtensionPtr::static_pointer_cast<
                     CANAppExtension>(app_extension);
             if (can_app_extension->is_on_driver_device()) {
-              can_module.UnsubscribeAppForAllZones(
-                  applications[i]->hmi_app_id(), can_app_extension);
               can_app_extension->set_is_on_driver_device(false);
             }
           }
@@ -234,8 +229,6 @@ void ModuleHelper::ProccessDeviceRankChanged(const uint32_t device_handle,
               application_manager::AppExtensionPtr::static_pointer_cast<
                   CANAppExtension>(app_extension);
           if (can_app_extension->is_on_driver_device()) {
-            can_module.UnsubscribeAppForAllZones(applications[i]->hmi_app_id(),
-                                                 can_app_extension);
             can_app_extension->set_is_on_driver_device(false);
           }
         }
@@ -259,8 +252,6 @@ void ModuleHelper::ProccessOnReverseAppsDisallowed(
           application_manager::AppExtensionPtr::static_pointer_cast<
               CANAppExtension>(app_extension);
       if (!can_app_extension->is_on_driver_device()) {
-        can_module.UnsubscribeAppForAllZones(applications[i]->hmi_app_id(),
-                                             can_app_extension);
       }
     }
   }
