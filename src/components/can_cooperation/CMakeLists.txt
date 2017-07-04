@@ -43,10 +43,17 @@ set (CAN_COMMANDS_DIR ${CAN_SOURCE_DIR}/commands)
 set (CAN_VALIDATORS_DIR ${CAN_SOURCE_DIR}/validators)
 set (CAN_STRUCT_VALIDATORS_DIR ${CAN_VALIDATORS_DIR}/struct_validators)
 
-collect_sources(SOURCES "${CAN_SOURCE_DIR}")
-collect_sources(SOURCES "${CAN_COMMANDS_DIR}")
-collect_sources(SOURCES "${CAN_VALIDATORS_DIR}")
-collect_sources(SOURCES "${CAN_STRUCT_VALIDATORS_DIR}")
+collect_sources(CAN_SOURCES "${CAN_SOURCE_DIR}")
+collect_sources(CAN_COMMANDS_SOURCES "${CAN_COMMANDS_DIR}")
+collect_sources(CAN_VALIDATORS_SOURCES "${CAN_VALIDATORS_DIR}")
+collect_sources(CAN_STRUCT_VALIDATORS_SOURCES "${CAN_STRUCT_VALIDATORS_DIR}")
+
+set (SOURCES
+    ${CAN_SOURCES}
+    ${CAN_COMMANDS_SOURCES}
+    ${CAN_VALIDATORS_SOURCES}
+    ${CAN_STRUCT_VALIDATORS_SOURCES}
+)
 
 set (LIBRARIES
     jsoncpp
@@ -54,7 +61,7 @@ set (LIBRARIES
     Utils
     ConfigProfile
 )
-
+message (${SOURCES})
 add_library(${target} SHARED ${SOURCES})
 target_link_libraries(${target} ${LIBRARIES} )
 

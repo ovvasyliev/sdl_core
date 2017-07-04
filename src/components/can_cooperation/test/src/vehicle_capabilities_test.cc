@@ -46,21 +46,5 @@ TEST(VehicleCapabilities, GetCapabilities) {
   ASSERT_TRUE(6 == caps.capabilities().size());
 }
 
-TEST(VehicleCapabilities, GetSpecificCapabilities) {
-  VehicleCapabilities caps;
-  Json::Value value;
-  value["col"] = 0;
-  value["row"] = 0;
-  value["level"] = 0;
-  value["colspan"] = 2;
-  value["rowspan"] = 2;
-  value["levelspan"] = 1;
-  ASSERT_EQ(Json::ValueType::arrayValue, caps.capabilities(value).type());
-  ASSERT_TRUE(2 == caps.capabilities(value).size());
-
-  value["row"] = 1;
-  ASSERT_EQ(Json::ValueType::arrayValue, caps.capabilities(value).type());
-  ASSERT_TRUE(1 == caps.capabilities(value).size());
-}
 
 }  // namespace can_cooperation
