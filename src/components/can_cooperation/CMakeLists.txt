@@ -6,8 +6,6 @@ else()
   set(GCOV_FLAGS "")
 endif()
 
-set(CMAKE_CXX_FLAGS "-fPIC -std=gnu++0x -Wall -Wno-deprecated-declarations -Werror ${GCOV_FLAGS}")
-
 if (CMAKE_BUILD_TYPE)
   if (${CMAKE_BUILD_TYPE} STREQUAL "Release")
     set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
@@ -46,35 +44,10 @@ set (CAN_VALIDATORS_DIR ${CAN_SOURCE_DIR}/validators)
 set (CAN_STRUCT_VALIDATORS_DIR ${CAN_VALIDATORS_DIR}/struct_validators)
 
 set (SOURCES
-    ${CAN_SOURCE_DIR}/can_module.cc
-    ${CAN_SOURCE_DIR}/can_app_extension.cc
-    ${CAN_SOURCE_DIR}/can_tcp_connection.cc
-    ${CAN_SOURCE_DIR}/can_module_event.cc
-    ${CAN_SOURCE_DIR}/mobile_command_factory.cc
-    ${CAN_SOURCE_DIR}/request_controller.cc
-    ${CAN_SOURCE_DIR}/message_helper.cc
-    ${CAN_SOURCE_DIR}/policy_helper.cc
-    ${CAN_SOURCE_DIR}/module_helper.cc
-    ${CAN_SOURCE_DIR}/vehicle_capabilities.cc
-    ${CAN_COMMANDS_DIR}/base_command_request.cc
-    ${CAN_COMMANDS_DIR}/base_command_notification.cc
-    ${CAN_COMMANDS_DIR}/button_press_request.cc
-    ${CAN_COMMANDS_DIR}/get_interior_vehicle_data_capabilities_request.cc
-    ${CAN_COMMANDS_DIR}/get_interior_vehicle_data_request.cc
-    ${CAN_COMMANDS_DIR}/set_interior_vehicle_data_request.cc
-    ${CAN_COMMANDS_DIR}/on_interior_vehicle_data_notification.cc
-    ${CAN_VALIDATORS_DIR}/validator.cc
-    ${CAN_VALIDATORS_DIR}/button_press_request_validator.cc
-    ${CAN_VALIDATORS_DIR}/get_interior_vehicle_data_capabilities_request_validator.cc
-    ${CAN_VALIDATORS_DIR}/get_interior_vehicle_data_request_validator.cc
-    ${CAN_VALIDATORS_DIR}/get_interior_vehicle_data_response_validator.cc
-    ${CAN_VALIDATORS_DIR}/set_interior_vehicle_data_request_validator.cc
-    ${CAN_VALIDATORS_DIR}/on_interior_vehicle_data_notification_validator.cc
-    ${CAN_STRUCT_VALIDATORS_DIR}/module_description_validator.cc
-    ${CAN_STRUCT_VALIDATORS_DIR}/module_data_validator.cc
-    ${CAN_STRUCT_VALIDATORS_DIR}/rds_data_validator.cc
-    ${CAN_STRUCT_VALIDATORS_DIR}/climate_control_data_validator.cc
-    ${CAN_STRUCT_VALIDATORS_DIR}/radio_control_data_validator.cc
+    ${CAN_SOURCE_DIR}/*.cc
+    ${CAN_COMMANDS_DIR}/*.cc
+    ${CAN_VALIDATORS_DIR}/*.cc
+    ${CAN_STRUCT_VALIDATORS_DIR}/*.cc
 )
 
 set (LIBRARIES
