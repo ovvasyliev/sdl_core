@@ -1,10 +1,6 @@
 {
   "interiorVehicleDataCapabilities": [
       {"moduleType": "CLIMATE"},
-      {"moduleType": "RADIO"},
-      {"moduleType": "CLIMATE"},
-      {"moduleType": "RADIO"},
-      {"moduleType": "CLIMATE"},
-      {"moduleType": "CLIMATE"}
+      {"moduleType": "RADIO"}
   ]
 }
