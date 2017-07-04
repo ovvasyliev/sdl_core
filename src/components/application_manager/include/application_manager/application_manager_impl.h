@@ -326,7 +326,7 @@ class ApplicationManagerImpl
   virtual void SendPostMessageToMobile(const MessagePtr& message) OVERRIDE;
 
   virtual void SendPostMessageToHMI(const MessagePtr& message) OVERRIDE;
-#endif
+#endif  // SDL_REMOTE_CONTROL
 
 
   /**

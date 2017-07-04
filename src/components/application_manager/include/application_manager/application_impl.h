@@ -183,6 +183,7 @@ class ApplicationImpl : public virtual Application,
   DataAccessor<VehicleInfoSubscriptions> SubscribedIVI() const OVERRIDE;
   inline bool IsRegistered() const OVERRIDE;
 
+#ifdef SDL_REMOTE_CONTROL
   bool SubscribeToInteriorVehicleData(
       smart_objects::SmartObject module) OVERRIDE;
   bool IsSubscribedToInteriorVehicleData(
@@ -190,9 +191,10 @@ class ApplicationImpl : public virtual Application,
   bool UnsubscribeFromInteriorVehicleData(
       smart_objects::SmartObject module) OVERRIDE;
 
-  /**
-   * @brief ResetDataInNone reset data counters in NONE
-   */
+#endif  // SDL_REMOTE_CONTROL
+        /**
+         * @brief ResetDataInNone reset data counters in NONE
+         */
   virtual void ResetDataInNone();
 
   virtual DataAccessor<ButtonSubscriptions> SubscribedButtons() const OVERRIDE;

@@ -672,6 +672,8 @@ class PolicyHandler : public PolicyHandlerInterface,
    */
   void UpdateHMILevel(application_manager::ApplicationSharedPtr app,
                       mobile_apis::HMILevel::eType level);
+  std::vector<std::string> GetDevicesIds(
+      const std::string& policy_app_id) OVERRIDE;
 #endif  // SDL_REMOTE_CONTROL
 
   /**
@@ -701,9 +703,6 @@ class PolicyHandler : public PolicyHandlerInterface,
    * @return Application id if suitable is found, otherwise - zero
    */
   uint32_t ChooseRandomAppForPolicyUpdate(Applications& app_list) const;
-
-
-  std::vector<std::string> GetDevicesIds(const std::string& policy_app_id) OVERRIDE;
 
  private:
   class StatisticManagerImpl : public usage_statistics::StatisticsManager {
