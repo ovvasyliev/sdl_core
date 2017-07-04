@@ -666,6 +666,16 @@ class PolicyHandler : public PolicyHandlerInterface,
       PermissionConsent& out_permissions) OVERRIDE;
 #endif
 
+#ifdef SDL_REMOTE_CONTROL
+  /**
+   * @brief Updates HMI level for specified application and send notification
+   * @param app application where HMI level was changed
+   * @param level new HMI level
+   */
+  void UpdateHMILevel(application_manager::ApplicationSharedPtr app,
+                      mobile_apis::HMILevel::eType level);
+#endif  // SDL_REMOTE_CONTROL
+
   /**
    * @brief Sets days after epoch on successful policy update
    */
