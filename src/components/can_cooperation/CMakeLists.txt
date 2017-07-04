@@ -43,12 +43,10 @@ set (CAN_COMMANDS_DIR ${CAN_SOURCE_DIR}/commands)
 set (CAN_VALIDATORS_DIR ${CAN_SOURCE_DIR}/validators)
 set (CAN_STRUCT_VALIDATORS_DIR ${CAN_VALIDATORS_DIR}/struct_validators)
 
-set (SOURCES
-    ${CAN_SOURCE_DIR}/*.cc
-    ${CAN_COMMANDS_DIR}/*.cc
-    ${CAN_VALIDATORS_DIR}/*.cc
-    ${CAN_STRUCT_VALIDATORS_DIR}/*.cc
-)
+collect_sources(SOURCES "${CAN_SOURCE_DIR}")
+collect_sources(SOURCES "${CAN_COMMANDS_DIR}")
+collect_sources(SOURCES "${CAN_VALIDATORS_DIR}")
+collect_sources(SOURCES "${CAN_STRUCT_VALIDATORS_DIR}")
 
 set (LIBRARIES
     jsoncpp
