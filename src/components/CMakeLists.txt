@@ -92,7 +92,6 @@ if(REMOTE_CONTROL)
   # --- Functional module
   add_subdirectory(./functional_module)
 endif()
-
 # --- Telemetry Monitor
 if(TELEMETRY_MONITOR)
   add_subdirectory(./telemetry_monitor)
