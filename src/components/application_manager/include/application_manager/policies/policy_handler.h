@@ -119,9 +119,8 @@ class PolicyHandler : public PolicyHandlerInterface,
    * @param application_id ID application
    * @param app_types list of HMI types
    */
-  void SetDefaultHmiTypes(
-      const std::string& application_id,
-      const smart_objects::SmartObject* app_types) OVERRIDE;
+  void SetDefaultHmiTypes(const std::string& application_id,
+                          const smart_objects::SmartObject* app_types) OVERRIDE;
 
   /**
    * Checks if application has HMI type
@@ -131,8 +130,8 @@ class PolicyHandler : public PolicyHandlerInterface,
    * @return true if hmi is contained in policy or app_types
    */
   bool CheckHMIType(const std::string& application_id,
-                          mobile_apis::AppHMIType::eType hmi,
-                          const smart_objects::SmartObject* app_types) OVERRIDE;
+                    mobile_apis::AppHMIType::eType hmi,
+                    const smart_objects::SmartObject* app_types) OVERRIDE;
 
   /**
    * Notifies about changing HMI level
@@ -232,8 +231,7 @@ class PolicyHandler : public PolicyHandlerInterface,
    * @param application_id ID of app whose permissions are changed
    */
   void OnRemoteAppPermissionsChanged(
-      const std::string& device_id,
-      const std::string& application_id) OVERRIDE;
+      const std::string& device_id, const std::string& application_id) OVERRIDE;
 
   /**
    * @brief Notifies Remote apps about change in HMI status

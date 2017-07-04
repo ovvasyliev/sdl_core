@@ -1965,8 +1965,8 @@ application_manager::TypeAccess PolicyHandler::CheckAccess(
     const std::string& rpc,
     const std::vector<PTString>& params) {
   POLICY_LIB_CHECK(application_manager::TypeAccess::kNone);
-  policy::TypeAccess access = policy_manager_->CheckAccess(
-      device_id, app_id, module, rpc, params);
+  policy::TypeAccess access =
+      policy_manager_->CheckAccess(device_id, app_id, module, rpc, params);
   return ConvertTypeAccess(access);
 }
 

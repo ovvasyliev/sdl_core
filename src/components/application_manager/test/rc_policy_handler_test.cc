@@ -266,26 +266,23 @@ TEST_F(RCPolicyHandlerTest, CheckAccess_ValidParams_SUCCESS) {
   const PTString pt_rpc("rpc");
   const std::vector<PTString> params;
 
-  EXPECT_CALL(
-      *mock_policy_manager_,
-      CheckAccess(kDeviceId_, kPolicyAppId_, module, pt_rpc, _))
+  EXPECT_CALL(*mock_policy_manager_,
+              CheckAccess(kDeviceId_, kPolicyAppId_, module, pt_rpc, _))
       .WillOnce(Return(policy::TypeAccess::kDisallowed));
   EXPECT_EQ(application_manager::TypeAccess::kDisallowed,
             policy_handler_.CheckAccess(
                 kDeviceId_, kPolicyAppId_, module, pt_rpc, params));
 
-  EXPECT_CALL(
-      *mock_policy_manager_,
-      CheckAccess(kDeviceId_, kPolicyAppId_, module, pt_rpc, _))
+  EXPECT_CALL(*mock_policy_manager_,
+              CheckAccess(kDeviceId_, kPolicyAppId_, module, pt_rpc, _))
       .WillOnce(Return(policy::TypeAccess::kAllowed));
 
   EXPECT_EQ(application_manager::TypeAccess::kAllowed,
             policy_handler_.CheckAccess(
                 kDeviceId_, kPolicyAppId_, module, pt_rpc, params));
 
-  EXPECT_CALL(
-      *mock_policy_manager_,
-      CheckAccess(kDeviceId_, kPolicyAppId_, module, pt_rpc, _))
+  EXPECT_CALL(*mock_policy_manager_,
+              CheckAccess(kDeviceId_, kPolicyAppId_, module, pt_rpc, _))
       .WillOnce(Return(policy::TypeAccess::kManual));
   EXPECT_EQ(application_manager::TypeAccess::kManual,
             policy_handler_.CheckAccess(
@@ -297,9 +294,8 @@ TEST_F(RCPolicyHandlerTest, SetAccess_ValidParams_SUCCESS) {
 
   const PTString module("module");
   const bool allowed(true);
-  EXPECT_CALL(
-      *mock_policy_manager_,
-      SetAccess(kDeviceId_, kPolicyAppId_, module, allowed));
+  EXPECT_CALL(*mock_policy_manager_,
+              SetAccess(kDeviceId_, kPolicyAppId_, module, allowed));
 
   policy_handler_.SetAccess(kDeviceId_, kPolicyAppId_, module, allowed);
 }
