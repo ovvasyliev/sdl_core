@@ -38,8 +38,7 @@ namespace policy {
 TEST(AccessRemoteImplTest, Allow) {
   AccessRemoteImpl access_remote;
   Subject who = {"dev1", "12345"};
-  SeatLocation zone = {0, 0, 0};
-  Object what = {policy_table::MT_RADIO, zone};
+  Object what = {policy_table::MT_RADIO};
   access_remote.Allow(who, what);
   AccessRemoteImpl::AccessControlList::const_iterator i =
       access_remote.acl_.find(what);
@@ -53,9 +52,8 @@ TEST(AccessRemoteImplTest, KeyMapTest) {
   // Testing operator < to use as key of map
   AccessRemoteImpl access_remote;
   Subject who = {"dev1", "12345"};
-  SeatLocation zone = {0, 0, 0};
-  Object what1 = {policy_table::MT_RADIO, zone};
-  Object what2 = {policy_table::MT_CLIMATE, zone};
+  Object what1 = {policy_table::MT_RADIO};
+  Object what2 = {policy_table::MT_CLIMATE};
   access_remote.Allow(who, what1);
   access_remote.Allow(who, what2);
   ASSERT_EQ(2u, access_remote.acl_.size());
@@ -64,8 +62,7 @@ TEST(AccessRemoteImplTest, KeyMapTest) {
 TEST(AccessRemoteImplTest, Deny) {
   AccessRemoteImpl access_remote;
   Subject who = {"dev1", "12345"};
-  SeatLocation zone = {0, 0, 0};
-  Object what = {policy_table::MT_RADIO, zone};
+  Object what = {policy_table::MT_RADIO};
   access_remote.Deny(who, what);
   AccessRemoteImpl::AccessControlList::const_iterator i =
       access_remote.acl_.find(what);
@@ -78,8 +75,7 @@ TEST(AccessRemoteImplTest, Deny) {
 TEST(AccessRemoteImplTest, ChangeAccess) {
   AccessRemoteImpl access_remote;
   Subject who = {"dev1", "12345"};
-  SeatLocation zone = {0, 0, 0};
-  Object what = {policy_table::MT_RADIO, zone};
+  Object what = {policy_table::MT_RADIO};
   access_remote.Allow(who, what);
   ASSERT_EQ(TypeAccess::kAllowed, access_remote.acl_[what][who]);
   access_remote.Deny(who, what);
@@ -91,9 +87,8 @@ TEST(AccessRemoteImplTest, ChangeAccess) {
 TEST(AccessRemoteImplTest, ResetBySubject) {
   AccessRemoteImpl access_remote;
   Subject who = {"dev1", "12345"};
-  SeatLocation zone = {0, 0, 0};
-  Object what1 = {policy_table::MT_RADIO, zone};
-  Object what2 = {policy_table::MT_CLIMATE, zone};
+  Object what1 = {policy_table::MT_RADIO};
+  Object what2 = {policy_table::MT_CLIMATE};
   access_remote.Allow(who, what1);
   access_remote.Deny(who, what2);
   ASSERT_EQ(2u, access_remote.acl_.size());
@@ -110,8 +105,7 @@ TEST(AccessRemoteImplTest, ResetByObject) {
   AccessRemoteImpl access_remote;
   Subject who1 = {"dev1", "12345"};
   Subject who2 = {"dev2", "123456"};
-  SeatLocation zone = {0, 0, 0};
-  Object what = {policy_table::MT_RADIO, zone};
+  Object what = {policy_table::MT_RADIO};
   access_remote.Allow(who1, what);
   access_remote.Deny(who2, what);
   ASSERT_EQ(1u, access_remote.acl_.size());
@@ -124,8 +118,7 @@ TEST(AccessRemoteImplTest, ResetByObject) {
 TEST(AccessRemoteImplTest, CheckAllowed) {
   AccessRemoteImpl access_remote;
   Subject who = {"dev1", "12345"};
-  SeatLocation zone = {0, 0, 0};
-  Object what = {policy_table::MT_RADIO, zone};
+  Object what = {policy_table::MT_RADIO};
   access_remote.Allow(who, what);
 
   EXPECT_EQ(TypeAccess::kAllowed, access_remote.Check(who, what));
@@ -135,8 +128,7 @@ TEST(AccessRemoteImplTest, CheckDisallowed) {
   AccessRemoteImpl access_remote;
   Subject who = {"dev1", "12345"};
   Subject who1 = {"dev1", "123456"};
-  SeatLocation zone = {0, 0, 0};
-  Object what = {policy_table::MT_RADIO, zone};
+  Object what = {policy_table::MT_RADIO};
 
   access_remote.Allow(who, what);
   EXPECT_EQ(TypeAccess::kManual, access_remote.Check(who1, what));
@@ -150,8 +142,7 @@ TEST(AccessRemoteImplTest, CheckManual) {
   AccessRemoteImpl access_remote;
   Subject who = {"dev1", "12345"};
   Subject who1 = {"dev1", "123456"};
-  SeatLocation zone = {0, 0, 0};
-  Object what = {policy_table::MT_RADIO, zone};
+  Object what = {policy_table::MT_RADIO};
 
   EXPECT_EQ(TypeAccess::kManual, access_remote.Check(who, what));
 
@@ -269,20 +260,6 @@ TEST(AccessRemoteImplTest, GetGroups) {
   apps["1234"].set_to_string(policy::kDefaultId);
   const policy_table::Strings& groups4 = access_remote.GetGroups(who2);
   EXPECT_TRUE(groups4.empty());
-}
-
-TEST(AccessRemoteImplTest, GetDeviceZone) {
-  AccessRemoteImpl access_remote;
-
-  // No zone
-  const SeatLocation* zone1 = access_remote.GetDeviceZone("dev_1");
-  EXPECT_EQ(0, zone1);
-
-  // Device has zone
-  SeatLocation expect = {0, 1, 0};
-  access_remote.seats_["dev_2"] = expect;
-  const SeatLocation* zone2 = access_remote.GetDeviceZone("dev_2");
-  EXPECT_EQ(expect, *zone2);
 }
 
 }  // namespace policy

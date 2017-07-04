@@ -56,9 +56,7 @@ class MockAccessRemote : public policy::AccessRemote {
   MOCK_CONST_METHOD1(IsPrimaryDevice, bool(const policy::PTString& dev_id));
   MOCK_METHOD1(SetPrimaryDevice, void(const policy::PTString& dev_id));
   MOCK_CONST_METHOD0(PrimaryDevice, policy::PTString());
-  MOCK_CONST_METHOD2(IsPassengerZone,
-                     bool(const policy::SeatLocation& seat,
-                          const policy::SeatLocation& zone));
+
   MOCK_METHOD2(Allow,
                void(const policy::Subject& who, const policy::Object& what));
   MOCK_METHOD2(Deny,
@@ -87,11 +85,6 @@ class MockAccessRemote : public policy::AccessRemote {
                           policy_table::ModuleType module));
   MOCK_METHOD1(IsAppReverse, bool(const policy::Subject& who));
   MOCK_METHOD0(Reset, void());
-  MOCK_CONST_METHOD1(GetDeviceZone,
-                     const policy::SeatLocation*(const std::string& device_id));
-  MOCK_METHOD2(SetDeviceZone,
-               void(const std::string& device_id,
-                    const policy::SeatLocation& zone));
   MOCK_METHOD2(GetModuleTypes,
                bool(const std::string& application_id,
                     std::vector<std::string>* modules));

@@ -45,6 +45,10 @@ namespace policy {
 
 class AccessRemoteImpl : public AccessRemote {
  public:
+  typedef std::map<Subject, TypeAccess> AccessControlRow;
+  typedef std::map<Object, AccessControlRow> AccessControlList;
+  typedef std::map<Subject, policy_table::AppHMITypes> HMIList;
+
   AccessRemoteImpl();
   explicit AccessRemoteImpl(utils::SharedPtr<CacheManager> cache);
 
@@ -72,17 +76,10 @@ class AccessRemoteImpl : public AccessRemote {
                                     const std::string& app_id,
                                     FunctionalIdType& group_types);
   virtual bool IsAppReverse(const Subject& who);
-  virtual const SeatLocation* GetDeviceZone(const std::string& device_id) const;
-  virtual void SetDeviceZone(const std::string& device_id,
-                             const SeatLocation& zone);
   virtual bool GetModuleTypes(const std::string& policy_app_id,
                               std::vector<std::string>* modules);
 
  private:
-  typedef std::map<Subject, TypeAccess> AccessControlRow;
-  typedef std::map<Object, AccessControlRow> AccessControlList;
-  typedef std::map<Subject, policy_table::AppHMITypes> HMIList;
-  typedef std::map<std::string, SeatLocation> SeatList;
   inline void set_enabled(bool value);
   inline bool country_consent() const;
   const policy_table::AppHMITypes& HmiTypes(const Subject& who);
@@ -100,8 +97,8 @@ class AccessRemoteImpl : public AccessRemote {
   bool enabled_;
   AccessControlList acl_;
   HMIList hmi_types_;
-  SeatList seats_;
 
+#ifdef BUILD_TESTS
   friend struct Erase;
   friend struct IsTypeAccess;
 
@@ -118,7 +115,7 @@ class AccessRemoteImpl : public AccessRemote {
   FRIEND_TEST(AccessRemoteImplTest, EnableDisable);
   FRIEND_TEST(AccessRemoteImplTest, SetDefaultHmiTypes);
   FRIEND_TEST(AccessRemoteImplTest, GetGroups);
-  FRIEND_TEST(AccessRemoteImplTest, GetDeviceZone);
+#endif  // BUILD_TESTS
 };
 
 }  // namespace policy
