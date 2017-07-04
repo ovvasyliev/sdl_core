@@ -2254,5 +2254,4 @@ void PolicyHandler::OnUpdateHMILevel(const std::string& device_id,
   UpdateHMILevel(app, level);
 }
 #endif  // SDL_REMOTE_CONTROL
->>>>>>> Moved rc-related functions implementation for AM interface
 }  //  namespace policy
