@@ -80,18 +80,6 @@ struct ToHMIType {
   }
 };
 
-struct IsZone {
- private:
-  const SeatLocation& seat_;
-
- public:
-  explicit IsZone(const SeatLocation& seat) : seat_(seat) {}
-  bool operator()(const policy_table::Zones::value_type& item) const {
-    const policy_table::InteriorZone& zone = item.second;
-    return seat_ == zone;
-  }
-};
-
 struct Contained {
  private:
   const policy_table::Strings& params_;
@@ -130,9 +118,9 @@ AccessRemoteImpl::AccessRemoteImpl(utils::SharedPtr<CacheManager> cache)
 
 void AccessRemoteImpl::Init() {
   LOG4CXX_AUTO_TRACE(logger_);
-  DCHECK(cache_->pt_);
+  DCHECK(cache_->pt());
 
-  policy_table::ModuleConfig& config = cache_->pt_->policy_table.module_config;
+  policy_table::ModuleConfig& config = cache_->pt()->policy_table.module_config;
   enabled_ = country_consent() &&
              (!config.user_consent_passengersRC.is_initialized() ||
               *config.user_consent_passengersRC);
@@ -170,7 +158,7 @@ bool AccessRemoteImpl::CheckModuleType(const PTString& app_id,
   }
 
   const policy_table::ApplicationParams& app =
-      cache_->pt_->policy_table.app_policies_section.apps[app_id];
+      cache_->pt()->policy_table.app_policies_section.apps[app_id];
   if (!app.moduleType.is_initialized()) {
     return false;
   }
@@ -182,7 +170,6 @@ bool AccessRemoteImpl::CheckModuleType(const PTString& app_id,
 
   return std::find(modules.begin(), modules.end(), module) != modules.end();
 }
-
 
 bool AccessRemoteImpl::IsAllowed(const policy_table::AccessModules& modules,
                                  const std::string& module_name,
@@ -271,12 +258,12 @@ void AccessRemoteImpl::Disable() {
 
 void AccessRemoteImpl::set_enabled(bool value) {
   enabled_ = country_consent() && value;
-  *cache_->pt_->policy_table.module_config.user_consent_passengersRC = value;
+  *cache_->pt()->policy_table.module_config.user_consent_passengersRC = value;
   cache_->Backup();
 }
 
 bool AccessRemoteImpl::country_consent() const {
-  policy_table::ModuleConfig& config = cache_->pt_->policy_table.module_config;
+  policy_table::ModuleConfig& config = cache_->pt()->policy_table.module_config;
   return !config.country_consent_passengersRC.is_initialized() ||
          *config.country_consent_passengersRC;
 }
@@ -303,7 +290,7 @@ const policy_table::AppHMITypes& AccessRemoteImpl::HmiTypes(
   if (cache_->IsDefaultPolicy(who.app_id)) {
     return hmi_types_[who];
   } else {
-    return *cache_->pt_->policy_table.app_policies_section.apps[who.app_id]
+    return *cache_->pt()->policy_table.app_policies_section.apps[who.app_id]
                 .AppHMIType;
   }
 }
@@ -312,10 +299,10 @@ const policy_table::Strings& AccessRemoteImpl::GetGroups(const Subject& who) {
   LOG4CXX_AUTO_TRACE(logger_);
   if (IsAppReverse(who)) {
     if (IsPrimaryDevice(who.dev_id)) {
-      return *cache_->pt_->policy_table.app_policies_section.apps[who.app_id]
+      return *cache_->pt()->policy_table.app_policies_section.apps[who.app_id]
                   .groups_primaryRC;
     } else if (IsEnabled()) {
-      return *cache_->pt_->policy_table.app_policies_section.apps[who.app_id]
+      return *cache_->pt()->policy_table.app_policies_section.apps[who.app_id]
                   .groups_nonPrimaryRC;
     } else {
       return cache_->GetGroups(kPreConsentPassengersRC);
@@ -350,15 +337,11 @@ std::ostream& operator<<(std::ostream& output,
   return output;
 }
 
-extern std::ostream& operator<<(std::ostream& output,
-                                const policy_table::Strings& groups);
-
 void AccessRemoteImpl::GetGroupsIds(const std::string& device_id,
                                     const std::string& app_id,
                                     FunctionalGroupIDs& groups_ids) {
   Subject who = {device_id, app_id};
   const policy_table::Strings& groups = GetGroups(who);
-  LOG4CXX_DEBUG(logger_, "Groups Names: " << groups);
   groups_ids.resize(groups.size());
   std::transform(groups.begin(),
                  groups.end(),
@@ -367,25 +350,11 @@ void AccessRemoteImpl::GetGroupsIds(const std::string& device_id,
   LOG4CXX_DEBUG(logger_, "Groups Ids: " << groups_ids);
 }
 
-const SeatLocation* AccessRemoteImpl::GetDeviceZone(
-    const std::string& device_id) const {
-  SeatList::const_iterator i = seats_.find(device_id);
-  if (i != seats_.end()) {
-    return &i->second;
-  }
-  return 0;
-}
-
-void AccessRemoteImpl::SetDeviceZone(const std::string& device_id,
-                                     const SeatLocation& zone) {
-  seats_[device_id] = zone;
-}
-
 bool AccessRemoteImpl::GetModuleTypes(const std::string& application_id,
                                       std::vector<std::string>* modules) {
   DCHECK(modules);
   policy_table::ApplicationPolicies& apps =
-      cache_->pt_->policy_table.app_policies_section.apps;
+      cache_->pt()->policy_table.app_policies_section.apps;
   policy_table::ApplicationPolicies::iterator i = apps.find(application_id);
   if (i == apps.end()) {
     return false;
