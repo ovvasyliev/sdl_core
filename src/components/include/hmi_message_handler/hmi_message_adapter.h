@@ -49,6 +49,7 @@ public:
   * \brief Destructor
   */
  virtual ~HMIMessageAdapter() {}
+
 #ifdef SDL_REMOTE_CONTROL
  /**
   * @brief Subscribes to notification from HMI
@@ -56,6 +57,7 @@ public:
   */
  virtual void SubscribeToHMINotification(
      const std::string& hmi_notification) = 0;
+#endif  // SDL_REMOTE_CONTROL
 
  protected:
   /**
