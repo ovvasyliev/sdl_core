@@ -538,6 +538,9 @@ class PolicyHandler : public PolicyHandlerInterface,
    */
   uint32_t ChooseRandomAppForPolicyUpdate(Applications& app_list) const;
 
+
+  std::vector<std::string> GetDevicesIds(const std::string& policy_app_id) OVERRIDE;
+
  private:
   class StatisticManagerImpl : public usage_statistics::StatisticsManager {
    public:
@@ -649,7 +652,6 @@ class PolicyHandler : public PolicyHandlerInterface,
    * otherwise FALSE
    */
   bool IsUrlAppIdValid(const uint32_t app_idx, const EndpointUrls& urls) const;
-
   DISALLOW_COPY_AND_ASSIGN(PolicyHandler);
 };
 

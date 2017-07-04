@@ -1950,4 +1950,11 @@ bool PolicyHandler::IsUrlAppIdValid(const uint32_t app_idx,
 
   return ((is_registered && !is_empty_urls) || is_default);
 }
+
+std::vector<std::string> PolicyHandler::GetDevicesIds(
+    const std::string& policy_app_id) {
+  return application_manager_.devices(policy_app_id);
+}
+
+
 }  //  namespace policy
