@@ -183,31 +183,6 @@ bool AccessRemoteImpl::CheckModuleType(const PTString& app_id,
   return std::find(modules.begin(), modules.end(), module) != modules.end();
 }
 
-TypeAccess AccessRemoteImpl::CheckParameters(
-    const Object& what,
-    const std::string& rpc,
-    const RemoteControlParams& params) const {
-  LOG4CXX_AUTO_TRACE(logger_);
-  const policy_table::Zones& zones =
-      cache_->pt_->policy_table.module_config.equipment->zones;
-  policy_table::Zones::const_iterator i =
-      std::find_if(zones.begin(), zones.end(), IsZone(what.zone));
-  if (i == zones.end()) {
-    LOG4CXX_DEBUG(logger_, what.zone << " wasn't found");
-    return TypeAccess::kDisallowed;
-  }
-
-  const policy_table::InteriorZone& zone = i->second;
-  std::string module_name = EnumToJsonString(what.module);
-  RemoteControlParams copy_params(params);
-  if (IsAllowed(zone.auto_allow, module_name, rpc, &copy_params)) {
-    return TypeAccess::kAllowed;
-  }
-  if (IsAllowed(zone.driver_allow, module_name, rpc, &copy_params)) {
-    return TypeAccess::kManual;
-  }
-  return TypeAccess::kDisallowed;
-}
 
 bool AccessRemoteImpl::IsAllowed(const policy_table::AccessModules& modules,
                                  const std::string& module_name,

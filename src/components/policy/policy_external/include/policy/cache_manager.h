@@ -921,7 +921,6 @@ class CacheManager : public CacheManagerInterface {
   FRIEND_TEST(AccessRemoteImplTest, CheckModuleType);
   FRIEND_TEST(AccessRemoteImplTest, EnableDisable);
   FRIEND_TEST(AccessRemoteImplTest, GetGroups);
-  FRIEND_TEST(AccessRemoteImplTest, CheckParameters);
 #endif  // BUILD_TESTS
 };
 }  // namespace policy

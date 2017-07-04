@@ -2006,12 +2006,8 @@ TypeAccess PolicyManagerImpl::CheckDriverConsent(
     return TypeAccess::kDisallowed;
   }
 
-  TypeAccess access = access_remote_->CheckParameters(what, rpc, params);
-  if (access == TypeAccess::kManual) {
-    return access_remote_->Check(who, what);
-  }
-  LOG4CXX_DEBUG(logger_, access);
-  return access;
+  return access_remote_->Check(who, what);
+
 }
 
 void PolicyManagerImpl::SetAccess(const PTString& dev_id,

@@ -185,17 +185,6 @@ class AccessRemote {
   virtual bool CheckModuleType(const PTString& app_id,
                                policy_table::ModuleType module) const = 0;
 
-  /**
-   * Checks permissions for parameters
-   * @param what object is module type
-   * @param params
-   * @return true allowed if access was given, disallowed if access was denied
-   * manual if need to ask driver
-   */
-  virtual TypeAccess CheckParameters(
-      const Object& what,
-      const std::string& rpc,
-      const RemoteControlParams& params) const = 0;
 
   /**
    * Sets HMI types if application has default policy permissions
