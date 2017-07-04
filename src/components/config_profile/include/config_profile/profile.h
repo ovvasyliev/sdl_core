@@ -160,11 +160,6 @@ class Profile : public protocol_handler::ProtocolHandlerSettings,
   const uint16_t audio_streaming_port() const OVERRIDE;
 
   /**
-    * @brief Returns folder containing all plugins
-    */
-  const std::string& plugins_folder() const;
-
-  /**
    * @brief Returns streaming timeout
    */
   uint32_t stop_streaming_timeout() const;
