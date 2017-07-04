@@ -231,10 +231,9 @@ void MessageHelper::SendActivateAppToHMI(
 
 void MessageHelper::SendHMIStatusNotification(
     const Application& application_impl,
-    ApplicationManager& application_manager,
-    mobile_apis::DeviceRank::eType rank) {
+    ApplicationManager& application_manager) {
   MockMessageHelper::message_helper_mock()->SendHMIStatusNotification(
-      application_impl, application_manager, rank);
+      application_impl, application_manager);
 }
 
 mobile_api::DeviceRank::eType MessageHelper::StringToDeviceRank(

@@ -114,10 +114,9 @@ class MockMessageHelper {
                     ApplicationManager& application_manager,
                     hmi_apis::Common_HMILevel::eType level,
                     bool send_policy_priority));
-  MOCK_METHOD3(SendHMIStatusNotification,
+  MOCK_METHOD2(SendHMIStatusNotification,
                void(const Application& application_impl,
-                    ApplicationManager& application_manager,
-                    mobile_apis::DeviceRank::eType rank));
+                    ApplicationManager& application_manager));
   MOCK_METHOD1(StringToDeviceRank,
                mobile_api::DeviceRank::eType(const std::string& device_rank));
   MOCK_METHOD4(SendPolicyUpdate,
