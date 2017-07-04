@@ -196,6 +196,11 @@ class Profile : public protocol_handler::ProtocolHandlerSettings,
   const std::vector<std::string>& vr_commands() const;
 
   /**
+    * @brief Returns folder containing all plugins
+    */
+  const std::string& plugins_folder() const;
+
+  /**
    * @brief Maximum command id available for mobile app
    */
   const uint32_t& max_cmd_id() const;
