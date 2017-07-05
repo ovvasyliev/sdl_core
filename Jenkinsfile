@@ -27,7 +27,7 @@ stage 'Unit Testing'
 	 echo thread apply all bt | gdb $test_file $COREFILE;
 	 exit 1;
 	fi'''
-parallel (
+
 stage 'Packing'
 	sh '''cp -r ${WORKSPACE}/build/src/3rdparty/LINUX/x86/lib/. ${WORKSPACE}/build/bin/
 	mkdir ${WORKSPACE}/build/bin/api
@@ -38,7 +38,6 @@ stage 'Packing'
 stage 'Cppcheck'
 	sh '''cd ..
 	cppcheck --enable=all --inconclusive -i "src/3rd_party-static" -i "src/3rd_party" --xml --xml-version=2 -q src 2> cppcheck.xml'''
-)
 
 stage 'Artifacts'
 	junit allowEmptyResults: true, testResults: 'build/test_results/*.xml'
