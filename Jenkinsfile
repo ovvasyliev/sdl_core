@@ -1,4 +1,15 @@
 node('atf_slave') {
+stage 'Parallel'
+        parallel(one: {
+                  echo "I'm on the first branch!"
+                 },
+                 two: {
+                   echo "I'm on the second branch!"
+                 },
+                 three: {
+                   echo "I'm on the third branch!"
+                   echo "But you probably guessed that already."
+                 })
 stage "Checkout"
 	checkout([$class: 'GitSCM', branches: [[name: 'feature/sdl_remote_control_baseline']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/ovvasyliev/sdl_core.git']]])
 
