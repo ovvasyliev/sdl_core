@@ -38,6 +38,7 @@ set (AM_MOCK_DIR ${AM_TEST_DIR}/mock)
 include_directories (
   include/
   ${COMPONENTS_DIR}
+  ${COMPONENTS_DIR}/functional_module/include/
   ${COMPONENTS_DIR}/utils/include/
   ${COMPONENTS_DIR}/formatters/include/
   ${COMPONENTS_DIR}/protocol_handler/include/
@@ -53,6 +54,7 @@ include_directories (
   ${POLICY_PATH}/include/
   ${POLICY_GLOBAL_INCLUDE_PATH}/
   ${CMAKE_BINARY_DIR}/src/components/
+  ${POLICY_INCLUDE_PATH}/
   ${JSONCPP_INCLUDE_DIRECTORY}
   ${ENCRYPTION_INCLUDE_DIRECTORY}
   ${MESSAGE_BROKER_INCLUDE_DIRECTORY}
@@ -275,6 +277,7 @@ set (HMI_COMMANDS_SOURCES
   ${COMMANDS_SOURCE_DIR}/hmi/on_app_permission_changed_notification.cc
   ${COMMANDS_SOURCE_DIR}/hmi/on_app_unregistered_notification.cc
   ${COMMANDS_SOURCE_DIR}/hmi/on_driver_distraction_notification.cc
+  ${COMMANDS_SOURCE_DIR}/hmi/on_seek_media_clock_timer_notification.cc
   ${COMMANDS_SOURCE_DIR}/hmi/on_ignition_cycle_over_notification.cc
   ${COMMANDS_SOURCE_DIR}/hmi/on_system_info_changed_notification.cc
   ${COMMANDS_SOURCE_DIR}/hmi/on_file_removed_notification.cc
@@ -331,6 +334,8 @@ set (HMI_COMMANDS_SOURCES
   ${COMMANDS_SOURCE_DIR}/hmi/decrypt_certificate_request.cc
   ${COMMANDS_SOURCE_DIR}/hmi/decrypt_certificate_response.cc
   ${COMMANDS_SOURCE_DIR}/hmi/ui_set_icon_request.cc
+  ${COMMANDS_SOURCE_DIR}/hmi/ui_set_audio_streaming_indicator_request.cc
+  ${COMMANDS_SOURCE_DIR}/hmi/ui_set_audio_streaming_indicator_response.cc
 )
 
 set (HMI_COMMANDS_SOURCES_JSON
@@ -386,9 +391,15 @@ set(PATHS
 )
 collect_sources(SOURCES "${PATHS}" "${EXCLUDE_PATHS}")
 
+if (NOT REMOTE_CONTROL)    
+    list(REMOVE_ITEM SOURCES
+        ${COMPONENTS_DIR}/application_manager/src/core_service.cc)
+endif()
+
 set(LIBRARIES
   HMI_API
   MOBILE_API
+  jsoncpp
   v4_protocol_v1_2_no_extra
   ProtocolLibrary
   SmartObjects
@@ -398,6 +409,13 @@ set(LIBRARIES
   dbms
   Utils
 )
+
+if(REMOTE_CONTROL)
+    SET (LIBRARIES
+      ${LIBRARIES}
+      FunctionalModule
+    )
+endif(REMOTE_CONTROL)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
   list(APPEND LIBRARIES sqlite3)
@@ -439,4 +457,5 @@ target_link_libraries("ApplicationManager" ${LIBRARIES})
 
 if(BUILD_TESTS)
   add_subdirectory(test)
+  add_subdirectory(test/application_manager)
 endif()
