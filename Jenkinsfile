@@ -14,6 +14,8 @@ pipeline {
 
 
 stages {
+	stage ('Global Build')
+	{
 	parallel(
 		Build_RC_ON: 
 		{
@@ -167,7 +169,7 @@ stages {
 }
 )
 }
-
+}
 		post {
 				// Always runs. And it runs before any of the other post conditions.
 				always {
