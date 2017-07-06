@@ -18,7 +18,7 @@ stages {
 		{
 			steps
 			{
-			sh 'bash -e tools/infrastructure/check_style.sh'
+			sh 'bash tools/infrastructure/check_style.sh'
 			}
 		}
 		stage ("Checkout")
