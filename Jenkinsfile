@@ -1,10 +1,4 @@
 
-options 
-	{
-		 timeout(time: 2, unit: 'HOURS') 
-		 timestamps()
-	}
-
 agent { node { label 'atf_slave' } } 
 
 stages {
