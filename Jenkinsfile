@@ -21,17 +21,18 @@ stages {
 	{
 	parallel(BldRCON: 
 		{
+		"firstTask" : {
 		node('atf_slave')
 		{	
-		"CodeStyleCheck":
+		stage ("Code Style Check")
 		{
 			steps
 			{
 			sh 'bash tools/infrastructure/check_style.sh'
 			}
-		},
+		}
 
-		'Build':
+		stage ('Build')
 		{
 			steps
 			{
@@ -93,9 +94,11 @@ stages {
 			}
 		}
 		}
+}
 },
 		BldRCOFF: 
 		{
+			"secondTask" : {
 		node('atf_slave2')
 		{
 		stage ("Code Style Check")
@@ -167,6 +170,7 @@ stages {
 						})
 			}
 		}
+}
 }
 })
 }
