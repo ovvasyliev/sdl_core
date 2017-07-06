@@ -13,12 +13,6 @@ pipeline {
 	}
 
 
-
-stages {
-	stage ('Global Build')
-	{
-	steps 
-	{
 	parallel(BldRCON: 
 		{
 		node('atf_slave')
@@ -169,9 +163,7 @@ stages {
 		}
 }
 })
-}
-}
-}
+
 		post {
 				// Always runs. And it runs before any of the other post conditions.
 				always {
