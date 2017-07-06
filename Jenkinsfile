@@ -17,6 +17,8 @@ pipeline {
 stages {
 	stage ('Global Build')
 	{
+	steps
+	{
 	parallel(BldRCON: 
 		{
 		stage ("Code Style Check")
@@ -162,6 +164,7 @@ stages {
 			}
 		}
 })
+}
 }
 }
 		post {
