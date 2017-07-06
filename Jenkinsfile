@@ -13,19 +13,25 @@ pipeline {
 	}
 
 
+
+stages {
+	stage ('Global Build')
+	{
+	steps 
+	{
 	parallel(BldRCON: 
 		{
 		node('atf_slave')
 		{	
-		stage ("Code Style Check")
+		"Code Style Check":
 		{
 			steps
 			{
 			sh 'bash tools/infrastructure/check_style.sh'
 			}
-		}
+		},
 
-		stage ('Build')
+		'Build':
 		{
 			steps
 			{
@@ -163,7 +169,9 @@ pipeline {
 		}
 }
 })
-
+}
+}
+}
 		post {
 				// Always runs. And it runs before any of the other post conditions.
 				always {
