@@ -1,5 +1,6 @@
 pipeline {
-	
+	agent { node { label 'atf_slave' } }
+
 	triggers 
 	{ 
 		pollSCM('H/5 * * * *') 
@@ -15,6 +16,8 @@ pipeline {
 
 stages {
 	stage ('Global Build')
+	{
+	steps 
 	{
 	parallel(BldRCON: 
 		{
@@ -166,6 +169,7 @@ stages {
 		}
 }
 })
+}
 }
 }
 		post {
