@@ -17,13 +17,8 @@ pipeline {
 stages {
 	stage ('Global Build')
 	{
-	steps 
-	{
-	parallel(BldRCON: 
+	step parallel(BldRCON: 
 		{
-		stages {
-		node('atf_slave')
-		{	
 		stage ("Code Style Check")
 		{
 			steps
@@ -93,13 +88,9 @@ stages {
 						})
 			}
 		}
-		}
-}
+		
 },
 		BldRCOFF: 
-		{
-		stages{
-		node('atf_slave2')
 		{
 		stage ("Code Style Check")
 		{
@@ -170,9 +161,7 @@ stages {
 						})
 			}
 		}
-}
-}})
-}
+})
 }
 }
 		post {
