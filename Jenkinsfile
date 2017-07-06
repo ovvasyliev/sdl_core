@@ -21,13 +21,6 @@ stages {
 			sh 'bash tools/infrastructure/check_style.sh'
 			}
 		}
-		stage ("Checkout")
-		{
-			steps
-			{
-				checkout([$class: 'GitSCM', branches: [[name: 'feature/sdl_remote_control_baseline']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/ovvasyliev/sdl_core.git']]])
-			}
-		}
 
 		stage ('Build')
 		{
