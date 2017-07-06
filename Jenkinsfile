@@ -1,10 +1,5 @@
 
-	triggers 
-	{ 
-		pollSCM('H/5 * * * *') 
-	}
-
-	options 
+options 
 	{
 		 timeout(time: 2, unit: 'HOURS') 
 		 timestamps()
