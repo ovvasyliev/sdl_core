@@ -23,7 +23,7 @@ stages {
 		{
 		node('atf_slave')
 		{	
-		"Code Style Check":
+		"CodeStyleCheck":
 		{
 			steps
 			{
