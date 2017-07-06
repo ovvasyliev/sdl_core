@@ -16,15 +16,23 @@ agent { node { label 'atf-slave' } }
 stages {
 		stage ("Code Style Check")
 		{
+			steps
+			{
 			sh 'bash -e tools/infrastructure/check_style.sh'
+			}
 		}
 		stage ("Checkout")
 		{
-			checkout([$class: 'GitSCM', branches: [[name: 'feature/sdl_remote_control_baseline']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/ovvasyliev/sdl_core.git']]])
+			steps
+			{
+				checkout([$class: 'GitSCM', branches: [[name: 'feature/sdl_remote_control_baseline']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/ovvasyliev/sdl_core.git']]])
+			}
 		}
 
 		stage ('Build')
 		{
+			steps
+			{
 			sh '''rm -rf build
 			mkdir build
 			cd build
@@ -33,10 +41,13 @@ stages {
 			export LD_LIBRARY_PATH=$THIRD_PARTY_INSTALL_PREFIX_ARCH/lib
 			cmake ${WORKSPACE} -DCMAKE_BUILD_TYPE="Debug" -DBUILD_TESTS=ON -DENABLE_GCOV=ON -DREMOTE_CONTROL=ON
 			make install'''	
+			}
 		}
 
 		stage ('Unit Testing')
 		{
+			steps
+			{
 			sh '''#!/bin/bash
 			cd build
 			make test | tee ut.log || true; result=${PIPESTATUS[0]};
@@ -53,9 +64,12 @@ stages {
 			echo thread apply all bt | gdb $test_file $COREFILE;
 			exit 1;
 			fi'''
+			}
 		}	
 		stage ('Parallel')
 		{
+			steps
+			{
 						parallel(
 						Packaging: 
 						{
@@ -73,7 +87,7 @@ stages {
 						{
 							junit allowEmptyResults: true, testResults: '${WORKSPACE}/build/test_results/*.xml'
 						})
-						
+			}
 		}
 }
 		post {
