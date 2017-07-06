@@ -14,7 +14,7 @@ pipeline {
 agent { node { label 'atf_slave' } } 
 
 stages {
-		stage "INIT"
+		stage "INIT"{
 parallel (
 "stream 1" : { 
 node('atf_slave') {
@@ -95,6 +95,7 @@ stage("SECOND") {
 }
 }
 )
+}
 }
 		post {
 				// Always runs. And it runs before any of the other post conditions.
