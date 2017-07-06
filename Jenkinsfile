@@ -16,8 +16,7 @@ pipeline {
 stages {
 	stage ('Global Build')
 	{
-	parallel(
-		Build_RC_ON: 
+	parallel Build_RC_ON: 
 		{
 		node('atf_slave')
 		{	
@@ -71,7 +70,7 @@ stages {
 		{
 			steps
 			{
-						parallel(
+						parallel
 						Packaging: 
 						{
 							sh '''cp -r ${WORKSPACE}/build/src/3rdparty/LINUX/x86/lib/. ${WORKSPACE}/build/bin/
@@ -87,7 +86,7 @@ stages {
 						Artifacts: 
 						{
 							junit allowEmptyResults: true, testResults: '${WORKSPACE}/build/test_results/*.xml'
-						})
+						}
 			}
 		}
 		}
@@ -146,7 +145,7 @@ stages {
 		{
 			steps
 			{
-						parallel(
+						parallel
 						Packaging: 
 						{
 							sh '''cp -r ${WORKSPACE}/build/src/3rdparty/LINUX/x86/lib/. ${WORKSPACE}/build/bin/
@@ -162,12 +161,11 @@ stages {
 						Artifacts: 
 						{
 							junit allowEmptyResults: true, testResults: '${WORKSPACE}/build/test_results/*.xml'
-						})
+						}
 			}
 		}
 }
 }
-)
 }
 }
 		post {
