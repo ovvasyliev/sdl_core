@@ -14,23 +14,12 @@ pipeline {
 agent { node { label 'atf_slave' } } 
 
 stages {
-		stage ("Code Style Check")
-		{
-			steps
-			{
-			sh 'bash tools/infrastructure/check_style.sh'
-			}
-		}
-
-		stage ('Build')
-		{
-			steps
-			{
-				parallel(
-					BuildON:
-					{
-						node ('atf_slave2') {
-							checkout scm
+		stage "INIT"
+parallel (
+"stream 1" : { 
+node('atf_slave') {
+stage("FIRST") {
+            checkout scm
 			sh '''rm -rf build
 			mkdir build
 			cd build
@@ -63,12 +52,13 @@ stages {
 			curl -u admin:1qaz@WSX -X PUT "http://172.30.23.4:8081/artifactory/OpenSDL_${GIT_BRANCH}/${BUILD_NUMBER}/${RC}/OpenSDL_${TESTS}.tar.gz" -T OpenSDL.tar.gz'''
 			sh '''cppcheck --enable=all --inconclusive -i "src/3rd_party-static" -i "src/3rd_party" --xml --xml-version=2 -q src 2> cppcheck.xml'''
 			junit allowEmptyResults: true, testResults: '${WORKSPACE}/build/test_results/*.xml'
-			}
-			},
-				BuildOFF:
-				{
-					node ('atf_slave2') {
-						checkout scm
+}
+}
+},
+"stream 2" : { 
+node('atf_slave2') {
+stage("SECOND") {
+			checkout scm
 			sh '''rm -rf build
 			mkdir build
 			cd build
@@ -101,11 +91,10 @@ stages {
 			curl -u admin:1qaz@WSX -X PUT "http://172.30.23.4:8081/artifactory/OpenSDL_${GIT_BRANCH}/${BUILD_NUMBER}/${RC}/OpenSDL_${TESTS}.tar.gz" -T OpenSDL.tar.gz'''
 			sh '''cppcheck --enable=all --inconclusive -i "src/3rd_party-static" -i "src/3rd_party" --xml --xml-version=2 -q src 2> cppcheck.xml'''
 			junit allowEmptyResults: true, testResults: '${WORKSPACE}/build/test_results/*.xml'
-			}
-				}
-				)
-			}
-		}
+}
+}
+}
+)
 }
 		post {
 				// Always runs. And it runs before any of the other post conditions.
