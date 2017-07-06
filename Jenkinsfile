@@ -16,7 +16,7 @@ pipeline {
 stages {
 	stage ('Global Build')
 	{
-	parallel BuildRCON: 
+	parallel BldRCON: 
 		{
 		node('atf_slave')
 		{	
@@ -91,7 +91,7 @@ stages {
 		}
 		}
 },
-		BuildRCOFF: 
+		BldRCOFF: 
 		{
 		node('atf_slave2')
 		{
