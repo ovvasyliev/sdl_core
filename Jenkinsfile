@@ -29,7 +29,7 @@ stages {
 				parallel(
 					BuildON:
 					{
-						node ('atf_slave')
+						node ('atf_slave') {
 			sh '''rm -rf build
 			mkdir build
 			cd build
@@ -38,11 +38,11 @@ stages {
 			export LD_LIBRARY_PATH=$THIRD_PARTY_INSTALL_PREFIX_ARCH/lib
 			cmake ${WORKSPACE} -DCMAKE_BUILD_TYPE="Debug" -DBUILD_TESTS=ON -DENABLE_GCOV=ON -DREMOTE_CONTROL=ON
 			make install
-			sudo ldconfig'''
+			sudo ldconfig'''}
 			},
 				BuildOFF:
 				{
-					node ('atf_slave2')
+					node ('atf_slave2') {
 			sh '''rm -rf build
 			mkdir build
 			cd build
@@ -51,7 +51,7 @@ stages {
 			export LD_LIBRARY_PATH=$THIRD_PARTY_INSTALL_PREFIX_ARCH/lib
 			cmake ${WORKSPACE} -DCMAKE_BUILD_TYPE="Debug" -DBUILD_TESTS=ON -DENABLE_GCOV=ON -DREMOTE_CONTROL=ON
 			make install
-			sudo ldconfig'''
+			sudo ldconfig'''}
 				}
 				)
 			}
