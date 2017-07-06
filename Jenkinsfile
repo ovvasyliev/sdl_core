@@ -61,6 +61,7 @@ stages {
 			exit 1;
 			fi'''
 			}
+		}
 		},
 		'D': {
 			agent { node { label 'atf_slave2' } } 
