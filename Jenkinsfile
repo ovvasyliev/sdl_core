@@ -11,7 +11,7 @@ pipeline {
 		 timestamps()
 	}
 
-agent { node { label 'atf-slave' } } 
+agent { node { label 'atf_slave' } } 
 
 stages {
 		stage ("Code Style Check")
