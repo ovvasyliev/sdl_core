@@ -29,7 +29,7 @@ stages {
 				parallel(
 					BuildON:
 					{
-						node ('atf_slave3') {
+						node ('atf_slave2') {
 							checkout scm
 			sh '''rm -rf build
 			mkdir build
