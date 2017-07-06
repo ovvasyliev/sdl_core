@@ -29,59 +29,35 @@ stages {
 				parallel(
 					BuildON:
 					{
-						node ('atf_slave') 
-						{
-							stage ('Checkout') 
-							{
-								steps 
-								{
-									checkout([$class: 'GitSCM', branches: [[name: 'feature/sdl_remote_control_baseline']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/ovvasyliev/sdl_core.git']]])
-								}
-							}
-							stage ('Build')
-							{
-								steps
-								{
-									sh '''rm -rf build
-									mkdir build
-									cd build
-									export THIRD_PARTY_INSTALL_PREFIX=${WORKSPACE}/build/src/3rdparty/LINUX
-									export THIRD_PARTY_INSTALL_PREFIX_ARCH=${THIRD_PARTY_INSTALL_PREFIX}/x86
-									export LD_LIBRARY_PATH=$THIRD_PARTY_INSTALL_PREFIX_ARCH/lib
-									cmake ${WORKSPACE} -DCMAKE_BUILD_TYPE="Debug" -DBUILD_TESTS=ON -DENABLE_GCOV=ON -DREMOTE_CONTROL=ON
-									make install
-									sudo ldconfig'''
-								}
-							}
-						}
-					},
+						node ('atf_slave') {
+							checkout scm
+			sh '''
+			git clone https://github.com/ovvasyliev/sdl_core.git
+			cd sdl_core
+			git checkout feature/sdl_remote_control_baseline
+			rm -rf build
+			mkdir build
+			cd build
+			export THIRD_PARTY_INSTALL_PREFIX=${WORKSPACE}/build/src/3rdparty/LINUX
+			export THIRD_PARTY_INSTALL_PREFIX_ARCH=${THIRD_PARTY_INSTALL_PREFIX}/x86
+			export LD_LIBRARY_PATH=$THIRD_PARTY_INSTALL_PREFIX_ARCH/lib
+			cmake ${WORKSPACE} -DCMAKE_BUILD_TYPE="Debug" -DBUILD_TESTS=ON -DENABLE_GCOV=ON -DREMOTE_CONTROL=ON
+			make install
+			sudo ldconfig'''}
+			},
 				BuildOFF:
 				{
-						node ('atf_slave2') 
-						{
-							stage ('Checkout') 
-							{
-								steps 
-								{
-									checkout([$class: 'GitSCM', branches: [[name: 'feature/sdl_remote_control_baseline']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/ovvasyliev/sdl_core.git']]])
-								}
-							}
-							stage ('Build')
-							{
-								steps
-								{
-									sh '''rm -rf build
-									mkdir build
-									cd build
-									export THIRD_PARTY_INSTALL_PREFIX=${WORKSPACE}/build/src/3rdparty/LINUX
-									export THIRD_PARTY_INSTALL_PREFIX_ARCH=${THIRD_PARTY_INSTALL_PREFIX}/x86
-									export LD_LIBRARY_PATH=$THIRD_PARTY_INSTALL_PREFIX_ARCH/lib
-									cmake ${WORKSPACE} -DCMAKE_BUILD_TYPE="Debug" -DBUILD_TESTS=ON -DENABLE_GCOV=ON -DREMOTE_CONTROL=OFF
-									make install
-									sudo ldconfig'''
-								}
-							}
-						}
+					node ('atf_slave2') {
+						checkout scm
+			sh '''rm -rf build
+			mkdir build
+			cd build
+			export THIRD_PARTY_INSTALL_PREFIX=${WORKSPACE}/build/src/3rdparty/LINUX
+			export THIRD_PARTY_INSTALL_PREFIX_ARCH=${THIRD_PARTY_INSTALL_PREFIX}/x86
+			export LD_LIBRARY_PATH=$THIRD_PARTY_INSTALL_PREFIX_ARCH/lib
+			cmake ${WORKSPACE} -DCMAKE_BUILD_TYPE="Debug" -DBUILD_TESTS=ON -DENABLE_GCOV=ON -DREMOTE_CONTROL=ON
+			make install
+			sudo ldconfig'''}
 				}
 				)
 			}
