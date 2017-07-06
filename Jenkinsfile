@@ -21,8 +21,8 @@ stages {
 			}
 		}
     parallel (
-        'C' : { 
-					agent { node { label 'atf_slave2' } } 
+    'C' : { 
+		agent { node { label 'atf_slave2' } } 
 		stage ('Build')
 		{
 			steps
@@ -62,9 +62,8 @@ stages {
 			fi'''
 			}
 		},
-		'D': 
-		{
-			agent { node { label 'atf_slave' } } 
+		'D': {
+			agent { node { label 'atf_slave2' } } 
 			stage ('Build')
 		{
 			steps
@@ -103,7 +102,7 @@ stages {
 			exit 1;
 			fi'''
 			}
-		}	
+		}})	
 		stage ('Parallel')
 		{
 			steps
