@@ -15,6 +15,7 @@ agent { node { label 'atf_slave' } }
 
 stages {
 		stage ("INIT"){
+			steps {
 parallel (
 "stream 1" : { 
 node('atf_slave') {
@@ -95,6 +96,7 @@ stage("SECOND") {
 }
 }
 )
+}
 }
 }
 		post {
