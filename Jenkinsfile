@@ -11,7 +11,7 @@ pipeline {
 		 timestamps()
 	}
 
-	node('atf_slave') {
+agent { node { label 'atf-slave' } } 
 
 stages {
 		stage ("Code Style Check")
@@ -91,6 +91,4 @@ stages {
 					emailext attachLog: true, body: '${SCRIPT, template="groovy-html.template"}', recipientProviders: [[$class: 'DevelopersRecipientProvider']], replyTo: 'mailer@lc-jenkinsdockerhost.luxoft.com', subject: '', to: 'AKutsan@luxoft.com, MGhiumiusliu@luxoft.com, IIKovalenko@luxoft.com, OVVasyliev@luxoft.com'
 				}
 			}
-
-	}
 }
