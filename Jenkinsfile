@@ -56,23 +56,13 @@ stages {
 			echo thread apply all bt | gdb $test_file $COREFILE;
 			exit 1;
 			fi'''
-			parallel(
-						Packaging: 
-						{
-							sh '''cp -r ${WORKSPACE}/build/src/3rdparty/LINUX/x86/lib/. ${WORKSPACE}/build/bin/
-							mkdir ${WORKSPACE}/build/bin/api
-							cp -r ${WORKSPACE}/src/components/interfaces/. ${WORKSPACE}/build/bin/api/
-							tar -zcvf OpenSDL_${TESTS}.tar.gz bin/
-							curl -u admin:1qaz@WSX -X PUT "http://172.30.23.4:8081/artifactory/OpenSDL_${GIT_BRANCH}/${BUILD_NUMBER}/${RC}/OpenSDL_${TESTS}.tar.gz" -T OpenSDL.tar.gz'''
-						},
-						Cppcheck: 
-						{
-							sh '''cppcheck --enable=all --inconclusive -i "src/3rd_party-static" -i "src/3rd_party" --xml --xml-version=2 -q src 2> cppcheck.xml'''
-						},
-						Artifacts: 
-						{
-							junit allowEmptyResults: true, testResults: '${WORKSPACE}/build/test_results/*.xml'
-						})
+			sh '''cp -r ${WORKSPACE}/build/src/3rdparty/LINUX/x86/lib/. ${WORKSPACE}/build/bin/
+			mkdir ${WORKSPACE}/build/bin/api
+			cp -r ${WORKSPACE}/src/components/interfaces/. ${WORKSPACE}/build/bin/api/
+			tar -zcvf OpenSDL_${TESTS}.tar.gz bin/
+			curl -u admin:1qaz@WSX -X PUT "http://172.30.23.4:8081/artifactory/OpenSDL_${GIT_BRANCH}/${BUILD_NUMBER}/${RC}/OpenSDL_${TESTS}.tar.gz" -T OpenSDL.tar.gz'''
+			sh '''cppcheck --enable=all --inconclusive -i "src/3rd_party-static" -i "src/3rd_party" --xml --xml-version=2 -q src 2> cppcheck.xml'''
+			junit allowEmptyResults: true, testResults: '${WORKSPACE}/build/test_results/*.xml'
 			}
 			},
 				BuildOFF:
@@ -104,23 +94,13 @@ stages {
 			echo thread apply all bt | gdb $test_file $COREFILE;
 			exit 1;
 			fi'''
-			parallel(
-						Packaging: 
-						{
-							sh '''cp -r ${WORKSPACE}/build/src/3rdparty/LINUX/x86/lib/. ${WORKSPACE}/build/bin/
-							mkdir ${WORKSPACE}/build/bin/api
-							cp -r ${WORKSPACE}/src/components/interfaces/. ${WORKSPACE}/build/bin/api/
-							tar -zcvf OpenSDL_${TESTS}.tar.gz bin/
-							curl -u admin:1qaz@WSX -X PUT "http://172.30.23.4:8081/artifactory/OpenSDL_${GIT_BRANCH}/${BUILD_NUMBER}/${RC}/OpenSDL_${TESTS}.tar.gz" -T OpenSDL.tar.gz'''
-						},
-						Cppcheck: 
-						{
-							sh '''cppcheck --enable=all --inconclusive -i "src/3rd_party-static" -i "src/3rd_party" --xml --xml-version=2 -q src 2> cppcheck.xml'''
-						},
-						Artifacts: 
-						{
-							junit allowEmptyResults: true, testResults: '${WORKSPACE}/build/test_results/*.xml'
-						})
+			sh '''cp -r ${WORKSPACE}/build/src/3rdparty/LINUX/x86/lib/. ${WORKSPACE}/build/bin/
+			mkdir ${WORKSPACE}/build/bin/api
+			cp -r ${WORKSPACE}/src/components/interfaces/. ${WORKSPACE}/build/bin/api/
+			tar -zcvf OpenSDL_${TESTS}.tar.gz bin/
+			curl -u admin:1qaz@WSX -X PUT "http://172.30.23.4:8081/artifactory/OpenSDL_${GIT_BRANCH}/${BUILD_NUMBER}/${RC}/OpenSDL_${TESTS}.tar.gz" -T OpenSDL.tar.gz'''
+			sh '''cppcheck --enable=all --inconclusive -i "src/3rd_party-static" -i "src/3rd_party" --xml --xml-version=2 -q src 2> cppcheck.xml'''
+			junit allowEmptyResults: true, testResults: '${WORKSPACE}/build/test_results/*.xml'
 			}
 				}
 				)
