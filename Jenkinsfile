@@ -21,7 +21,7 @@ stages {
 	{
 	parallel(BldRCON: 
 		{
-		"firstTask" : {
+		stages {
 		node('atf_slave')
 		{	
 		stage ("Code Style Check")
@@ -98,7 +98,7 @@ stages {
 },
 		BldRCOFF: 
 		{
-			"secondTask" : {
+		stages{
 		node('atf_slave2')
 		{
 		stage ("Code Style Check")
@@ -171,8 +171,7 @@ stages {
 			}
 		}
 }
-}
-})
+}})
 }
 }
 }
