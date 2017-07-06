@@ -14,16 +14,16 @@ pipeline {
 	node('atf_slave') {
 
 stages {
-		stage "Code Style Check"
+		stage ("Code Style Check")
 		{
 			sh 'bash -e tools/infrastructure/check_style.sh'
 		}
-		stage "Checkout"
+		stage ("Checkout")
 		{
 			checkout([$class: 'GitSCM', branches: [[name: 'feature/sdl_remote_control_baseline']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/ovvasyliev/sdl_core.git']]])
 		}
 
-		stage 'Build' 
+		stage ('Build')
 		{
 			sh '''rm -rf build
 			mkdir build
@@ -35,7 +35,7 @@ stages {
 			make install'''	
 		}
 
-		stage 'Unit Testing'
+		stage ('Unit Testing')
 		{
 			sh '''#!/bin/bash
 			cd build
@@ -54,7 +54,7 @@ stages {
 			exit 1;
 			fi'''
 		}	
-		stage 'Parallel'
+		stage ('Parallel')
 		{
 						parallel(
 						Packaging: 
