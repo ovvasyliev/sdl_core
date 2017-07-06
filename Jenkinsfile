@@ -31,11 +31,7 @@ stages {
 					{
 						node ('atf_slave') {
 							checkout scm
-			sh '''
-			git clone https://github.com/ovvasyliev/sdl_core.git
-			cd sdl_core
-			git checkout feature/sdl_remote_control_baseline
-			rm -rf build
+			sh '''rm -rf build
 			mkdir build
 			cd build
 			export THIRD_PARTY_INSTALL_PREFIX=${WORKSPACE}/build/src/3rdparty/LINUX
