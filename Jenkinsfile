@@ -14,7 +14,8 @@ stage 'Build'
 	make install'''	
 
 stage 'Unit Testing'
-	sh '''cd build
+	sh '''#!/bin/bash
+	cd build
 	make test | tee ut.log || true; result=${PIPESTATUS[0]};
 	if [ $result -ne 0 ]; then
 	 COREFILE=$(find /tmp/corefiles -type f -name "core*");
